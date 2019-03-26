@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ASCIIEngine.BasicClasses
+namespace ASCIIEngine.Core.BasicClasses
 {
     public class GameObject
     {
@@ -34,7 +34,7 @@ namespace ASCIIEngine.BasicClasses
 
         public virtual bool HasCollider { get; set; }
 
-        public virtual string ID { get; set; }
+        public virtual string Tag { get; set; }
 
         public virtual void Start() { }
 

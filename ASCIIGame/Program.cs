@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using ASCIIEngine;
-using ASCIIEngine.BasicClasses;
+using ASCIIEngine.Core;
+using ASCIIEngine.Core.BasicClasses;
+using ASCIIEngine.CLI;
 
 using System.Linq;
 
 using ASCIIGame.Objects;
+
+using Console = Colorful.Console;
+using System.Drawing;
 
 namespace ASCIIGame
 {
@@ -19,16 +23,19 @@ namespace ASCIIGame
 
             var isPlaying = true;
 
-            Vector2D worldSize = new Vector2D(20, 20);
-
             rand = new Random();
+
+            Vector2D worldSize = new Vector2D(20, 20);
 
             var camera = new Camera(
                     new Vector2D(0, 0),
                     worldSize);
 
-            ASCIIEngine.Core core = new Core(
-                camera);
+            Logger.BasePoint = new Vector2D(42, 2);
+            Logger.LineLengthLimit = 32;
+            Logger.LineNumberLimit = 18;
+
+            ASCIIEngine.Core.Base core = new Base();
 
             core.Initialize();
 
@@ -38,42 +45,24 @@ namespace ASCIIGame
                 Layer = 3
             };
 
-            
 
-            for(int i = -1; i < worldSize.X+1; i++)
-            {
-                core.AddObject(new Stone
-                {
-                    Position = new Vector2D(i, 0),
-                    Layer = 2
-                });
-                core.AddObject(new Stone
-                {
-                    Position = new Vector2D(0, i),
-                    Layer = 2
-                });
-                core.AddObject(new Stone
-                {
-                    Position = new Vector2D(worldSize.X-1, i),
-                    Layer = 2
-                });
-                core.AddObject(new Stone
-                {
-                    Position = new Vector2D(i, worldSize.Y-1),
-                    Layer = 2
-                });
-            }
+            CLIHelper.DrawRect(Vector2D.Zero, new Vector2D(75, 21), new Material { BackgroundColor = Color.Gray }, new Material { BackgroundColor = Color.Black });
+            CLIHelper.DrawRect(Vector2D.Zero, new Vector2D(40, 21), new Material { BackgroundColor = Color.Gray }, new Material { BackgroundColor = Color.Black });
 
-            for (int i = 1; i < worldSize.X-1; i++)
-                for (int j = 1; j < worldSize.Y-1; j++)
+            Logger.PrintLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+            //заполнение мира объектами
+            for (int i = 0; i < worldSize.X; i++)
+                for (int j = 0; j < worldSize.Y; j++)
                 {
-                    if(rand.Next(100) < 10)
+                    if (rand.Next(100) < 10)
                     {
                         core.AddObject(new Stone()
                         {
                             Position = new Vector2D(i, j),
                             Layer = 2
                         });
+                        continue;
                     }
                     else
                     {
@@ -95,15 +84,15 @@ namespace ASCIIGame
                     }
                 }
 
-
             var bonus = new Bonus()
             {
                 Layer = 4
             };
+
             core.AddObject(bonus);
-            var gm = new GameManager(() => PlaceBonus(worldSize, core, bonus));
+            var gm = new GameManager(() => PlaceBonus(worldSize, core, bonus), worldSize);
             core.AddObject(gm);
-            
+
             core.AddObject(player);
 
             PlaceBonus(worldSize, core, bonus);
@@ -112,46 +101,29 @@ namespace ASCIIGame
 
             Console.CursorVisible = false;
 
-            buffer = core.Render(buffer);
-            WriteBuffer(buffer);
+            buffer = camera.Render(buffer);
+            CLIHelper.DrawArray(buffer, new Vector2D(1,1));
+
             while (isPlaying)
             {
                 var input = Console.ReadKey(true);
                 core.SetPressedKey(input.Key);
                 core.DoStep();
-                buffer = core.Render(buffer);
-                WriteBuffer(buffer);
+                buffer = camera.Render(buffer);
+                CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
                 PrintScore(gm.Score);
             }
         }
 
         private static void PrintScore(int score)
         {
-            Console.SetCursorPosition(41, 1);
-            Console.Write("Score: " + score + "     ");
+            Logger.PrintAt("Score: " + score, new Vector2D(42,1));
         }
 
-        private static void WriteBuffer(Material[,] buffer)
-        {
-            for (int i = 0; i < buffer.GetLength(0); i++)
-            {
-                for (int j = 0; j < buffer.GetLength(1); j++)
-                {
-                    if (buffer[i, j].Character == '\0')
-                        continue;
-                    var obj = buffer[i, j];
-                    Console.SetCursorPosition(j*2, i);
-                    Console.ForegroundColor = obj.ForegroundColor;
-                    Console.BackgroundColor = obj.BackgroundColor;
-                    Console.Write(obj.Character);
-                }
-            }
-        }
-
-        private static void PlaceBonus(Vector2D worldSize, Core core, Bonus bonus)
+        private static void PlaceBonus(Vector2D worldSize, Base core, Bonus bonus)
         {
             Vector2D bonusPos = new Vector2D(rand.Next(worldSize.X), rand.Next(worldSize.Y));
-            var objs = core.GetObjectsAtPosition(bonusPos);
+            var objs = GameObjectPoolSingleton.Instance.GetObjectsAtPosition(bonusPos);
             if (objs.FirstOrDefault(o => o is Stone) == null)
             {
                 bonus.Position = bonusPos;

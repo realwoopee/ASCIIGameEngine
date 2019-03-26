@@ -1,26 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using ASCIIEngine.BasicClasses;
+using ASCIIEngine.Core.BasicClasses;
 
-namespace ASCIIEngine
+namespace ASCIIEngine.Core
 {
-    public class Core
+    public class Base
     {
-
-        private Camera _camera;
         private GameObjectPoolSingleton _objectsPool;
 
-        public Core(Camera camera)
+        public Base()
         {
-            _camera = camera;
             _objectsPool = GameObjectPoolSingleton.Instance;
         }
 
         public void Initialize()
         {
-            _camera.Objects = _objectsPool.Objects;
             foreach (var o in _objectsPool.Objects)
                 o.Start();
         }
@@ -40,27 +36,18 @@ namespace ASCIIEngine
                 .Where(o => o.HasChanged));
         }
 
-        public Material[,] Render(Material[,] buffer)
-        {
-            return _camera.Render(buffer);
-        }
-
         public void SetPressedKey(ConsoleKey key)
         {
             Input.SetPressedKey(key);
         }
 
-        public IEnumerable<GameObject> GetObjectsAtPosition(Vector2D position)
-        {
-            return _objectsPool.Objects
-                .Where(o => o.Position == position);
-        }
+        
 
         private void CheckForCollisions(IEnumerable<GameObject> objects)
         {
             foreach(var obj in objects)
             {
-                var list = GetObjectsAtPosition(obj.Position).ToList();
+                var list = GameObjectPoolSingleton.Instance.GetObjectsAtPosition(obj.Position).Where(o => o.HasCollider).ToList();
                 if(list.Count > 1)
                 {
                     foreach (var o in list)

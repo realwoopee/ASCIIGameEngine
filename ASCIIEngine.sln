@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCIIEngine", "ASCIIEngine\ASCIIEngine.csproj", "{80FF803C-6017-4B27-9A81-A2A06C67AE8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCIIEngine.Core", "ASCIIEngine\ASCIIEngine.Core.csproj", "{80FF803C-6017-4B27-9A81-A2A06C67AE8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCIIGame", "ASCIIGame\ASCIIGame.csproj", "{5CFCBB42-84BF-4A1E-8B69-05AA2139A30B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCIIGame", "ASCIIGame\ASCIIGame.csproj", "{5CFCBB42-84BF-4A1E-8B69-05AA2139A30B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCIIEngine.CLI", "ASCIIEngine.CLI\ASCIIEngine.CLI.csproj", "{D232532F-31EC-4422-BFC9-AFF24752603D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5CFCBB42-84BF-4A1E-8B69-05AA2139A30B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CFCBB42-84BF-4A1E-8B69-05AA2139A30B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CFCBB42-84BF-4A1E-8B69-05AA2139A30B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D232532F-31EC-4422-BFC9-AFF24752603D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D232532F-31EC-4422-BFC9-AFF24752603D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D232532F-31EC-4422-BFC9-AFF24752603D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D232532F-31EC-4422-BFC9-AFF24752603D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

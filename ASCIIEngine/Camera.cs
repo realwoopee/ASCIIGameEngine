@@ -1,19 +1,21 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ASCIIEngine.BasicClasses;
+using ASCIIEngine.Core.BasicClasses;
 
-namespace ASCIIEngine
+namespace ASCIIEngine.Core
 {
     public class Camera
     {
-        public List<GameObject> Objects { get; set; }
+        private IReadOnlyList<GameObject> _objects;
 
         public Camera(Vector2D position, Vector2D size)
         {
             Position = position;
             Size = size;
+
+            _objects = GameObjectPoolSingleton.Instance.Objects;
         }
 
         public Vector2D Position { get; set; }
@@ -22,7 +24,8 @@ namespace ASCIIEngine
 
         public Material[,] Render(Material[,] buffer)
         {
-            var objsToRender = Objects?
+            var objsToRender = _objects
+                //.Where(o => o.HasChanged)
                 .Where(o => o.Position >= this.Position)
                 .Where(o => o.Position < this.Position + this.Size)
                 .GroupBy(o => o.Layer)
@@ -30,14 +33,27 @@ namespace ASCIIEngine
 
             var output = new Material[Size.X, Size.Y];
 
-            foreach(var g in objsToRender)
-            foreach(var o in g)
-            {
-                var relativePos = o.Position - this.Position;
-                output[relativePos.X, relativePos.Y] = o.Material;
-            }
+            foreach (var g in objsToRender)
+                foreach (var o in g)
+                {
+                    var relativePos = o.Position - this.Position;
+                    output[relativePos.X, relativePos.Y] = o.Material;
+                }
 
-            return output;
+            return XorArrays(buffer, output);
+        }
+
+        public Material[,] XorArrays(Material[,] buffer, Material[,] result)
+        {
+            for (int i = 0; i < buffer.GetLength(0); i++)
+                for (int j = 0; j < buffer.GetLength(1); j++)
+                {
+                    if(buffer[i,j] == result[i,j])
+                    {
+                        result[i, j] = new Material();
+                    }
+                }
+            return result;
         }
     }
 }

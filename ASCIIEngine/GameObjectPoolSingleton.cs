@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using ASCIIEngine.BasicClasses;
+using ASCIIEngine.Core.BasicClasses;
 
-namespace ASCIIEngine
+namespace ASCIIEngine.Core
 {
     public class GameObjectPoolSingleton
     {
@@ -13,34 +13,42 @@ namespace ASCIIEngine
 
         public static GameObjectPoolSingleton Instance { get => _lazy.Value; }
 
-        internal List<GameObject> Objects;
+        private List<GameObject> _objects;
+
+        public IReadOnlyList<GameObject> Objects => _objects;
 
         private GameObjectPoolSingleton()
         {
-            Objects = new List<GameObject>();
+            _objects = new List<GameObject>();
         }
 
         internal void AddObject(GameObject gameObject)
         {
-            if(gameObject.ID != null)
-            if (Objects.Find(o => o.ID != null && o.ID.Equals(gameObject.ID)) != null)
+            if(gameObject.Tag != null)
+            if (_objects.Find(o => o.Tag != null && o.Tag.Equals(gameObject.Tag)) != null)
             {
-                throw new ArgumentException("There is already a gameObject with ID = " + gameObject.ID);
+                throw new ArgumentException("There is already a gameObject with ID = " + gameObject.Tag);
             }
-            
-            Objects.Add(gameObject);
+
+            _objects.Add(gameObject);
             gameObject.Start();
         }
 
-        public GameObject GetObjectById(string id) => 
-            Objects.FirstOrDefault(o => o.ID != null && o.ID.Equals(id));
+        public GameObject GetObjectById(string id) =>
+            _objects.FirstOrDefault(o => o.Tag != null && o.Tag.Equals(id));
+
+        public IEnumerable<GameObject> GetObjectsAtPosition(Vector2D position)
+        {
+            return _objects
+                .Where(o => o.Position == position);
+        }
 
         internal void RemoveObject(string id)
         {
-            var obj = Objects.FirstOrDefault(o => o.ID.Equals(id));
+            var obj = Objects.FirstOrDefault(o => o.Tag.Equals(id));
             if (obj != null)
             {
-                Objects.Remove(obj);
+                _objects.Remove(obj);
             }
         }
     }

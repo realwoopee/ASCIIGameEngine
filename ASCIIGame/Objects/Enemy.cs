@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
-using ASCIIEngine.BasicClasses;
+using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIGame.Objects
 {
@@ -19,12 +20,28 @@ namespace ASCIIGame.Objects
 
         public override void OnCollision(List<GameObject> collidedWith)
         {
-            if (collidedWith.Find(o => o is Stone || o is Bonus || (o is Enemy && o != this)) != null)
+            var mat = this.Material;
+            mat.BackgroundColor = Color.White;
+
+            if (collidedWith.Find(o => (o is Enemy && o != this)) != null)
             {
                 this.Position = _prevPos;
+                mat.BackgroundColor = Color.Green;
             }
 
-            //if(collidedWith)
+            if (collidedWith.Find(o => o is Bonus) != null)
+            {
+                this.Position = _prevPos;
+                mat.BackgroundColor = Color.Yellow;
+            }
+
+            if (collidedWith.Find(o => o is Stone) != null)
+            {
+                this.Position = _prevPos;
+                mat.BackgroundColor = Color.DarkGray;
+            }
+
+            this.Material = mat;
         }
 
         public override void Start()
@@ -32,7 +49,7 @@ namespace ASCIIGame.Objects
             this.Material = new Material
             {
                 Character = 'X',
-                ForegroundColor = ConsoleColor.Red
+                ForegroundColor = Color.Red
             };
 
             _counter = 0;
@@ -40,18 +57,18 @@ namespace ASCIIGame.Objects
 
         public override void Step()
         {
-            _prevPos = this.Position;
-
-            Vector2D relativePos;
+            var tempPos = this.Position;
 
             switch (_counter)
             {
                 case 0:
                 case 2:
                 {
-                    relativePos = target.Position - this.Position;
+                    Vector2D relativePos = target.Position - this.Position;
                     
                     this.Position += relativePos / (relativePos.Length == 0 ? 1 : relativePos.Length);
+
+                    _prevPos = tempPos;
                     break;
                 }
             }
@@ -65,5 +82,7 @@ namespace ASCIIGame.Objects
                 _counter++;
             }
         }
+
+        public override string ToString() => $"Enemy at X:{this.Position.X} Y:{this.Position.Y}";
     }
 }

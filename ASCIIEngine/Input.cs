@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace ASCIIEngine
+namespace ASCIIEngine.Core
 {
     public static class Input
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
-using ASCIIEngine;
-using ASCIIEngine.BasicClasses;
+using ASCIIEngine.Core;
+using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIGame.Objects
 {
@@ -39,7 +40,7 @@ namespace ASCIIGame.Objects
             this.Material = new Material
             {
                 Character = '@',
-                ForegroundColor = ConsoleColor.DarkCyan
+                ForegroundColor = Color.DarkCyan
             };
         }
 
