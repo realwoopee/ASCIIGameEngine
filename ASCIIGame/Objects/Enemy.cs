@@ -23,16 +23,10 @@ namespace ASCIIGame.Objects
 
         public override void OnCollision(IEnumerable<GameObject> collidedWith)
         {
-            var mat = this.Material;
-            mat.BackgroundColor = Color.White;
-
-            if (collidedWith.Any(o => (o is Enemy)))
+            if (collidedWith.Any(o => (o is Enemy) || (o is Stone)))
             {
                 this.Position = _prevPos;
-                mat.BackgroundColor = Color.Green;
             }
-
-            this.Material = mat;
         }
 
         public override void Start()
