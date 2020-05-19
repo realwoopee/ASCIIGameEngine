@@ -34,9 +34,7 @@ namespace ASCIIGame
 
             ASCIIEngine.Core.Base core = new Base();
 
-            core.Initialize();
-
-            var player = new Player()
+            var player = new PlayerHead()
             {
                 Position = new Vector2D(5, 5),
                 Layer = 3
@@ -94,6 +92,8 @@ namespace ASCIIGame
 
             core.AddObject(player);
 
+            core.Initialize();
+
             PlaceBonus(worldSize, core, bonus);
 
             var buffer = new Material[renderer.Size.X, renderer.Size.Y];
@@ -102,17 +102,23 @@ namespace ASCIIGame
 
             buffer = renderer.Render(buffer);
             CLIHelper.DrawArray(buffer, new Vector2D(1,1));
-            
+            var time = DateTime.Now;
+
             while (isPlaying)
             {
-                Thread.Sleep(33);
-                core.SetPressedKey(Console.ReadKey(true).Key);
+                Thread.Sleep(500 - (int)(DateTime.Now - time).TotalMilliseconds);
+
+                if (Console.KeyAvailable)
+                    core.SetPressedKey(Console.ReadKey(true).Key);
+                else
+                    core.SetPressedKey(ConsoleKey.F);
                 core.DoStep();
                 buffer = renderer.Render(buffer);
                 CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
                 PrintScore(gameManager.Score);
                 while (Console.KeyAvailable)
-                    Console.ReadKey(true)
+                    Console.ReadKey(true);
+                time = DateTime.Now;
             }
         }
 
