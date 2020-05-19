@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Text;
 using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
 
@@ -10,7 +7,7 @@ namespace ASCIIEngine.Core
 {
     public class Base
     {
-        private GameObjectPoolSingleton _objectsPool;
+        private readonly GameObjectPoolSingleton _objectsPool;
 
         public Base()
         {
@@ -45,18 +42,18 @@ namespace ASCIIEngine.Core
         private void CheckForCollisions(IEnumerable<GameObject> objects)
         {
             var checkedObjs = new List<GameObject>();
-            foreach(var obj in objects)
+            foreach (var obj in objects)
             {
-                if(checkedObjs.Contains(obj)) continue;
-                
+                if (checkedObjs.Contains(obj)) continue;
+
                 var collidedObjects = GameObjectPoolSingleton.Instance
                     .GetObjectsAtPosition(obj.Position)
                     .Where(o => o.HasCollider);
 
-                if(collidedObjects.Count() > 1)
+                if (collidedObjects.Count() > 1)
                 {
                     foreach (var o in collidedObjects)
-                        o.OnCollision(collidedObjects.Except(new []{o}));
+                        o.OnCollision(collidedObjects.Except(new[] {o}));
                 }
 
                 checkedObjs.AddRange(collidedObjects);

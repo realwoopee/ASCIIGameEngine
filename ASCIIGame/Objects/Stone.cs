@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using ASCIIEngine.Core;
+﻿using System.Drawing;
 using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIGame.Objects
@@ -13,11 +9,7 @@ namespace ASCIIGame.Objects
 
         public override void Start()
         {
-            this.Material = new Material
-            {
-                Character = '█',
-                ForegroundColor = Color.DarkGray
-            };
+            Material = new Material('█', Color.DarkGray);
         }
     }
 }

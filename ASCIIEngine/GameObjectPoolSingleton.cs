@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
 
@@ -8,12 +7,12 @@ namespace ASCIIEngine.Core
 {
     public class GameObjectPoolSingleton
     {
-        private static readonly Lazy<GameObjectPoolSingleton> _lazy =
+        private static readonly Lazy<GameObjectPoolSingleton> Lazy =
             new Lazy<GameObjectPoolSingleton>(() => new GameObjectPoolSingleton());
 
-        public static GameObjectPoolSingleton Instance { get => _lazy.Value; }
+        public static GameObjectPoolSingleton Instance => Lazy.Value;
 
-        private List<GameObject> _objects;
+        private readonly List<GameObject> _objects;
 
         public IReadOnlyList<GameObject> Objects => _objects;
 
@@ -24,7 +23,7 @@ namespace ASCIIEngine.Core
 
         internal void AddObject(GameObject gameObject)
         {
-            if(gameObject.Tag != null && _objects.Any(o => o.Tag != null && o.Tag.Equals(gameObject.Tag)))
+            if (gameObject.Tag != null && _objects.Any(o => o.Tag != null && o.Tag.Equals(gameObject.Tag)))
             {
                 throw new ArgumentException("There is already a gameObject with ID = " + gameObject.Tag);
             }

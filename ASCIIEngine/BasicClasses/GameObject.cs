@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ASCIIEngine.Core.BasicClasses
 {
     public class GameObject
     {
         private Vector2D _position;
+
         public virtual Vector2D Position
         {
             get => _position;
@@ -18,6 +17,7 @@ namespace ASCIIEngine.Core.BasicClasses
         }
 
         private Material _material;
+
         public virtual Material Material
         {
             get => _material;
@@ -36,10 +36,16 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public virtual string Tag { get; set; }
 
-        public virtual void Start() { }
+        public virtual void Start()
+        {
+        }
 
-        public virtual void Step() {}
+        public virtual void Step()
+        {
+        }
 
-        public virtual void OnCollision(IEnumerable<GameObject> collidedWith) { }
+        public virtual void OnCollision(IEnumerable<GameObject> collidedWith)
+        {
+        }
     }
 }

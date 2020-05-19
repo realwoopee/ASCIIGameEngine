@@ -1,15 +1,34 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 namespace ASCIIEngine.Core.BasicClasses
 {
     public struct Material
     {
-        public Color BackgroundColor;
-        public Color ForegroundColor;
-        public char Character;
+        public readonly Color BackgroundColor;
+        public readonly Color ForegroundColor;
+        public readonly char Character;
+
+        public Material(char character, Color foregroundColor, Color backgroundColor)
+        {
+            Character = character;
+            ForegroundColor = foregroundColor;
+            BackgroundColor = backgroundColor;
+        }
+        
+        public Material(char character, Color foregroundColor)
+        {
+            Character = character;
+            ForegroundColor = foregroundColor;
+            BackgroundColor = Color.Empty;
+        }
+        
+        public Material(Color foregroundColor, Color backgroundColor)
+        {
+            Character = default;
+            ForegroundColor = foregroundColor;
+            BackgroundColor = backgroundColor;
+        }
 
         public static bool operator ==(Material a, Material b)
         {
@@ -28,7 +47,7 @@ namespace ASCIIEngine.Core.BasicClasses
                 return false;
             }
 
-            var material = (Material)obj;
+            var material = (Material) obj;
             return BackgroundColor == material.BackgroundColor &&
                    ForegroundColor == material.ForegroundColor &&
                    Character == material.Character;

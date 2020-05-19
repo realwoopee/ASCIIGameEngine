@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIGame.Objects
@@ -21,48 +19,40 @@ namespace ASCIIGame.Objects
 
         public override void OnCollision(IEnumerable<GameObject> collidedWith)
         {
-            var mat = this.Material;
-            mat.BackgroundColor = Color.White;
+            var newBackground = Color.White;
 
-            if (collidedWith.Any(o => (o is Enemy)))
+            if (collidedWith.Any(o => o is Enemy))
             {
-                this.Position = _prevPos;
-                mat.BackgroundColor = Color.Green;
+                Position = _prevPos;
+                newBackground = Color.Green;
             }
 
-            this.Material = mat;
+            Material = new Material(Material.Character, Material.ForegroundColor, newBackground);
         }
 
         public override void Start()
         {
-            this.Material = new Material
-            {
-                Character = 'X',
-                ForegroundColor = Color.Red
-            };
-
+            Material = new Material('X', Color.Red);
             _counter = 0;
         }
 
         public override void Step()
         {
-            var tempPos = this.Position;
+            var tempPos = Position;
 
             switch (_counter)
             {
                 case 0:
                 case 2:
                 {
-                    Vector2D relativePos = target.Position - this.Position;
-                    
-                    this.Position += relativePos / (relativePos.Length == 0 ? 1 : relativePos.Length);
-
+                    var relativePos = target.Position - Position;
+                    Position += relativePos / (relativePos.Length == 0 ? 1 : relativePos.Length);
                     _prevPos = tempPos;
+
                     break;
                 }
             }
-
-            if(_counter == MaxCounterValue)
+            if (_counter == MaxCounterValue)
             {
                 _counter = 0;
             }
@@ -72,6 +62,6 @@ namespace ASCIIGame.Objects
             }
         }
 
-        public override string ToString() => $"Enemy at X:{this.Position.X} Y:{this.Position.Y}";
+        public override string ToString() => $"Enemy at X:{Position.X} Y:{Position.Y}";
     }
 }

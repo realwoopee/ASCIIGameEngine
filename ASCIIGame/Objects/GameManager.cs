@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 using ASCIIEngine.Core;
 using ASCIIEngine.Core.BasicClasses;
 

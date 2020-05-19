@@ -58,10 +58,9 @@ namespace ASCIIEngine.Core
                 else
                     _basePoint = Vector2D.Zero;
             }
-
         }
 
-        public static void PrintLine(string message, 
+        public static void PrintLine(string message,
             ConsoleColor foregroundColor = ConsoleColor.White,
             ConsoleColor backgroundColor = ConsoleColor.Black)
         {
@@ -87,17 +86,17 @@ namespace ASCIIEngine.Core
             }
         }
 
-        public static void PrintAt(string message, 
-            Vector2D position, 
+        public static void PrintAt(string message,
+            Vector2D position,
             ConsoleColor foregroundColor = ConsoleColor.White,
             ConsoleColor backgroundColor = ConsoleColor.Black)
         {
             Print(message, position, foregroundColor, backgroundColor);
         }
 
-        private static void Print(string message, 
-            Vector2D position, 
-            ConsoleColor foregroundColor = ConsoleColor.White, 
+        private static void Print(string message,
+            Vector2D position,
+            ConsoleColor foregroundColor = ConsoleColor.White,
             ConsoleColor backgroundColor = ConsoleColor.Black)
         {
             Console.SetCursorPosition(position.X, position.Y);
