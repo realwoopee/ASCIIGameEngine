@@ -112,7 +112,7 @@ namespace ASCIIGame
                 CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
                 PrintScore(gameManager.Score);
                 while (Console.KeyAvailable)
-                    Console.ReadKey(true)
+                    Console.ReadKey(true);
             }
         }
 
