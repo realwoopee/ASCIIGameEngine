@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using ASCIIEngine.Core.BasicClasses;
 
@@ -18,27 +19,15 @@ namespace ASCIIGame.Objects
 
         private Vector2D _prevPos;
 
-        public override void OnCollision(List<GameObject> collidedWith)
+        public override void OnCollision(IEnumerable<GameObject> collidedWith)
         {
             var mat = this.Material;
             mat.BackgroundColor = Color.White;
 
-            if (collidedWith.Find(o => (o is Enemy && o != this)) != null)
+            if (collidedWith.Any(o => (o is Enemy)))
             {
                 this.Position = _prevPos;
                 mat.BackgroundColor = Color.Green;
-            }
-
-            if (collidedWith.Find(o => o is Bonus) != null)
-            {
-                this.Position = _prevPos;
-                mat.BackgroundColor = Color.Yellow;
-            }
-
-            if (collidedWith.Find(o => o is Stone) != null)
-            {
-                this.Position = _prevPos;
-                mat.BackgroundColor = Color.DarkGray;
             }
 
             this.Material = mat;

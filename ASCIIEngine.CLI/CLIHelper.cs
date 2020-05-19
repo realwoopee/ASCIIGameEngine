@@ -28,11 +28,11 @@ namespace ASCIIEngine.CLI
             Console.ForegroundColor = innerMaterial.ForegroundColor;
             Console.BackgroundColor = innerMaterial.BackgroundColor;
 
-            for (int y = start.Y+1; y <= end.Y-1; y++)
+            for (int y = start.Y + 1; y <= end.Y - 1; y++)
             {
-                Console.SetCursorPosition(start.X+1, y);
+                Console.SetCursorPosition(start.X + 1, y);
 
-                for (int x = start.X+1; x <= end.X-1; x++)
+                for (int x = start.X + 1; x <= end.X - 1; x++)
                 {
                     Console.Write(innerMaterial.Character);
                 }

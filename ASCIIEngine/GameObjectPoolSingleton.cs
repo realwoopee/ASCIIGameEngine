@@ -24,8 +24,7 @@ namespace ASCIIEngine.Core
 
         internal void AddObject(GameObject gameObject)
         {
-            if(gameObject.Tag != null)
-            if (_objects.Find(o => o.Tag != null && o.Tag.Equals(gameObject.Tag)) != null)
+            if(gameObject.Tag != null && _objects.Any(o => o.Tag != null && o.Tag.Equals(gameObject.Tag)))
             {
                 throw new ArgumentException("There is already a gameObject with ID = " + gameObject.Tag);
             }

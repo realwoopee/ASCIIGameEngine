@@ -28,14 +28,14 @@ namespace ASCIIGame.Objects
 
         public void OnBonus()
         {
-            Logger.PrintLine("Игрок сожрал бонус.");
+            Logger.PrintLine("Player ate a bonus.");
             Score++;
             ResetBonus();
         }
 
         public void OnEnemy()
         {
-            Logger.PrintLine("Оп-па, отдавай свои бонусы.");
+            Logger.PrintLine("GIMME UR POITNZ.");
             Score = 0;
         }
     }

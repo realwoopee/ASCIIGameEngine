@@ -30,7 +30,7 @@ namespace ASCIIGame.Objects
                 {
                     Character = 'o',
                     ForegroundColor = Color.DarkOrange
-        };
+                };
             }
             else
             {

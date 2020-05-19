@@ -40,6 +40,6 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public virtual void Step() {}
 
-        public virtual void OnCollision(List<GameObject> collidedWith) { }
+        public virtual void OnCollision(IEnumerable<GameObject> collidedWith) { }
     }
 }

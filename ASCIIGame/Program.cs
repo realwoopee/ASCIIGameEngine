@@ -10,12 +10,12 @@ using ASCIIGame.Objects;
 
 using Console = Colorful.Console;
 using System.Drawing;
+using System.Threading;
 
 namespace ASCIIGame
 {
     class Program
     {
-        private static Random rand;
 
         static void Main(string[] args)
         {
@@ -23,13 +23,10 @@ namespace ASCIIGame
 
             var isPlaying = true;
 
-            rand = new Random();
 
             Vector2D worldSize = new Vector2D(20, 20);
 
-            var camera = new Camera(
-                    new Vector2D(0, 0),
-                    worldSize);
+            var renderer = new Renderer(worldSize);
 
             Logger.BasePoint = new Vector2D(42, 2);
             Logger.LineLengthLimit = 32;
@@ -90,28 +87,28 @@ namespace ASCIIGame
             };
 
             core.AddObject(bonus);
-            var gm = new GameManager(() => PlaceBonus(worldSize, core, bonus), worldSize);
-            core.AddObject(gm);
+            var gameManager = new GameManager(() => PlaceBonus(worldSize, core, bonus), worldSize);
+            core.AddObject(gameManager);
 
             core.AddObject(player);
 
             PlaceBonus(worldSize, core, bonus);
 
-            var buffer = new Material[camera.Size.X, camera.Size.Y];
+            var buffer = new Material[renderer.Size.X, renderer.Size.Y];
 
             Console.CursorVisible = false;
 
-            buffer = camera.Render(buffer);
+            buffer = renderer.Render(buffer);
             CLIHelper.DrawArray(buffer, new Vector2D(1,1));
-
+            
             while (isPlaying)
             {
-                var input = Console.ReadKey(true);
-                core.SetPressedKey(input.Key);
+                Thread.Sleep(33);
+                core.SetPressedKey(Console.ReadKey(true).Key);
                 core.DoStep();
-                buffer = camera.Render(buffer);
+                buffer = renderer.Render(buffer);
                 CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
-                PrintScore(gm.Score);
+                PrintScore(gameManager.Score);
             }
         }
 
@@ -122,9 +119,10 @@ namespace ASCIIGame
 
         private static void PlaceBonus(Vector2D worldSize, Base core, Bonus bonus)
         {
-            Vector2D bonusPos = new Vector2D(rand.Next(worldSize.X), rand.Next(worldSize.Y));
+            var rand = new Random();
+            var bonusPos = new Vector2D(rand.Next(worldSize.X), rand.Next(worldSize.Y));
             var objs = GameObjectPoolSingleton.Instance.GetObjectsAtPosition(bonusPos);
-            if (objs.FirstOrDefault(o => o is Stone) == null)
+            if (!objs.All(o => o is Stone))
             {
                 bonus.Position = bonusPos;
             }

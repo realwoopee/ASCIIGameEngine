@@ -12,14 +12,7 @@ namespace ASCIIEngine.Core
     {
         public static bool CanMoveTo(Vector2D position)
         {
-            if(GameObjectPoolSingleton.Instance.GetObjectsAtPosition(position).Where(o => o.HasCollider).Count() == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return !GameObjectPoolSingleton.Instance.GetObjectsAtPosition(position).Any(o => o.HasCollider);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using ASCIIEngine.Core;
 using ASCIIEngine.Core.BasicClasses;
@@ -15,19 +16,19 @@ namespace ASCIIGame.Objects
 
         private GameManager gm;
 
-        public override void OnCollision(List<GameObject> collidedWith)
+        public override void OnCollision(IEnumerable<GameObject> collidedWith)
         {
-            if (collidedWith.Find(o => o is Stone) != null)
+            if (collidedWith.Any(o => o is Stone))
             {
                 this.Position = _prevPos;
             }
 
-            if (collidedWith.Find(o => o is Bonus) != null)
+            if (collidedWith.Any(o => o is Bonus))
             {
                 gm.OnBonus();
             }
 
-            if (collidedWith.Find(o => o is Enemy) != null)
+            if (collidedWith.Any(o => o is Enemy))
             {
                 gm.OnEnemy();
             }

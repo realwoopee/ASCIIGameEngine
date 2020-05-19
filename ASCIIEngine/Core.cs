@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Text;
 using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
@@ -24,7 +26,7 @@ namespace ASCIIEngine.Core
         public void DoStep()
         {
             var objects = _objectsPool.Objects;
-            //Logic
+
             foreach (var o in objects)
             {
                 o.HasChanged = false;
@@ -32,7 +34,6 @@ namespace ASCIIEngine.Core
             }
 
             CheckForCollisions(objects
-                .Where(o => o.HasCollider)
                 .Where(o => o.HasChanged));
         }
 
@@ -41,18 +42,24 @@ namespace ASCIIEngine.Core
             Input.SetPressedKey(key);
         }
 
-        
-
         private void CheckForCollisions(IEnumerable<GameObject> objects)
         {
+            var checkedObjs = new List<GameObject>();
             foreach(var obj in objects)
             {
-                var list = GameObjectPoolSingleton.Instance.GetObjectsAtPosition(obj.Position).Where(o => o.HasCollider).ToList();
-                if(list.Count > 1)
+                if(checkedObjs.Contains(obj)) continue;
+                
+                var collidedObjects = GameObjectPoolSingleton.Instance
+                    .GetObjectsAtPosition(obj.Position)
+                    .Where(o => o.HasCollider);
+
+                if(collidedObjects.Count() > 1)
                 {
-                    foreach (var o in list)
-                        o.OnCollision(list);
+                    foreach (var o in collidedObjects)
+                        o.OnCollision(collidedObjects.Except(new []{o}));
                 }
+
+                checkedObjs.AddRange(collidedObjects);
             }
         }
 

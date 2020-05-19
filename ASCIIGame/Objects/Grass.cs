@@ -9,8 +9,6 @@ namespace ASCIIGame.Objects
 {
     class Grass : GameObject
     {
-        public override string Tag => base.Tag;
-
         public override bool HasCollider => false;
 
         public override void Start()

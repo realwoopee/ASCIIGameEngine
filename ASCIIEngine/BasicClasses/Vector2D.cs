@@ -54,6 +54,8 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public override bool Equals(object obj)
         {
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
+
             if (!(obj is Vector2D))
             {
                 return false;
