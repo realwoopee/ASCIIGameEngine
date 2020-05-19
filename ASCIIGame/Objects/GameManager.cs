@@ -14,11 +14,18 @@ namespace ASCIIGame.Objects
 
         public Action ResetBonus;
 
+        private PlayerHead player;
+
         public int Score { get; private set; }
 
         public GameManager(Action resetBonus, Vector2D worldSize)
         {
             ResetBonus = resetBonus;
+        }
+
+        public override void Start()
+        {
+            player = GameObjectPoolSingleton.Instance.GetObjectById("player") as PlayerHead;
         }
 
         public override void Step()
@@ -30,6 +37,7 @@ namespace ASCIIGame.Objects
         {
             Logger.PrintLine("Player ate a bonus.");
             Score++;
+            player.AddTail();
             ResetBonus();
         }
 
