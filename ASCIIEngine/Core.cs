@@ -45,13 +45,14 @@ namespace ASCIIEngine.Core
         private void CheckForCollisions(IEnumerable<GameObject> objects)
         {
             var checkedObjs = new List<GameObject>();
-            foreach(var obj in objects)
+            foreach(var obj in objects.ToList())
             {
                 if(checkedObjs.Contains(obj)) continue;
                 
                 var collidedObjects = GameObjectPoolSingleton.Instance
                     .GetObjectsAtPosition(obj.Position)
-                    .Where(o => o.HasCollider);
+                    .Where(o => o.HasCollider)
+                    .ToList();
 
                 if(collidedObjects.Count() > 1)
                 {

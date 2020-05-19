@@ -22,7 +22,7 @@ namespace ASCIIEngine.Core
             _objects = new List<GameObject>();
         }
 
-        internal void AddObject(GameObject gameObject)
+        public void AddObject(GameObject gameObject)
         {
             if(gameObject.Tag != null && _objects.Any(o => o.Tag != null && o.Tag.Equals(gameObject.Tag)))
             {
@@ -42,7 +42,7 @@ namespace ASCIIEngine.Core
                 .Where(o => o.Position == position);
         }
 
-        internal void RemoveObject(string id)
+        public void RemoveObject(string id)
         {
             var obj = Objects.FirstOrDefault(o => o.Tag.Equals(id));
             if (obj != null)
