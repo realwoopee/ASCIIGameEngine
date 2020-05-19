@@ -17,6 +17,8 @@ namespace ASCIIGame.Objects
 
         public GameObject target; //GameObject that this entity will chase.
 
+        public override int Layer => 2;
+
         private Vector2D _prevPos;
 
         public override void OnCollision(IEnumerable<GameObject> collidedWith)

@@ -9,6 +9,7 @@ namespace ASCIIGame.Objects
     public class Bonus : GameObject
     {
         public override bool HasCollider => true;
+        public override int Layer => 5;
 
         public bool _counter;
 

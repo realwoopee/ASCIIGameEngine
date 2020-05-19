@@ -10,6 +10,7 @@ namespace ASCIIGame.Objects
     class Grass : GameObject
     {
         public override bool HasCollider => false;
+        public override int Layer => 1;
 
         public override void Start()
         {

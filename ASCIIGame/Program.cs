@@ -56,8 +56,7 @@ namespace ASCIIGame
                     {
                         core.AddObject(new Stone()
                         {
-                            Position = new Vector2D(i, j),
-                            Layer = 2
+                            Position = new Vector2D(i, j)
                         });
                         continue;
                     }
@@ -65,8 +64,7 @@ namespace ASCIIGame
                     {
                         core.AddObject(new Grass()
                         {
-                            Position = new Vector2D(i, j),
-                            Layer = 1
+                            Position = new Vector2D(i, j)
                         });
                     }
 
@@ -75,8 +73,7 @@ namespace ASCIIGame
                         core.AddObject(new Enemy()
                         {
                             target = player,
-                            Position = new Vector2D(i, j),
-                            Layer = 3
+                            Position = new Vector2D(i, j)
                         });
                     }
                 }

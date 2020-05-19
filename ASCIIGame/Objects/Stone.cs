@@ -10,6 +10,7 @@ namespace ASCIIGame.Objects
     public class Stone : GameObject
     {
         public override bool HasCollider => true;
+        public override int Layer => 3;
 
         public override void Start()
         {
