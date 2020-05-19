@@ -48,6 +48,8 @@ namespace ASCIIGame
 
             Logger.PrintLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
+            var rand = new Random();
+
             //заполнение мира объектами
             for (int i = 0; i < worldSize.X; i++)
                 for (int j = 0; j < worldSize.Y; j++)
@@ -109,6 +111,8 @@ namespace ASCIIGame
                 buffer = renderer.Render(buffer);
                 CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
                 PrintScore(gameManager.Score);
+                while (Console.KeyAvailable)
+                    Console.ReadKey(true)
             }
         }
 
