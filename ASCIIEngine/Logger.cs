@@ -71,7 +71,7 @@ namespace ASCIIEngine.Core
                 _lastLine = 0;
             }
 
-            Vector2D lineStart = _basePoint + new Vector2D(0, 1) * _lastLine;
+            var lineStart = _basePoint + new Vector2D(0, 1) * _lastLine;
 
             if (message.Length > LineLengthLimit)
             {
@@ -102,7 +102,7 @@ namespace ASCIIEngine.Core
         {
             Console.SetCursorPosition(position.X, position.Y);
             Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = backgroundColor;
             Console.Write(message);
         }
 
@@ -110,11 +110,11 @@ namespace ASCIIEngine.Core
         {
             Console.BackgroundColor = ConsoleColor.Black;
 
-            for (int y = startPos.Y; y <= endPos.Y; y++)
+            for (var y = startPos.Y; y <= endPos.Y; y++)
             {
                 Console.SetCursorPosition(startPos.X, y);
 
-                for (int x = startPos.X; x <= endPos.X; x++)
+                for (var x = startPos.X; x <= endPos.X; x++)
                 {
                     Console.Write('\0');
                 }
