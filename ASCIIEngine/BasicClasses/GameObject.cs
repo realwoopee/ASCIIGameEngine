@@ -36,6 +36,10 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public virtual string Tag { get; set; }
 
+        public Vector2D Min => Position;
+        
+        public Vector2D Max => Position;
+
         public virtual void Start()
         {
         }

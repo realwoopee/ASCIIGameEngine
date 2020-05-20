@@ -30,7 +30,7 @@ namespace ASCIIEngine.Core
                 o.Step();
             }
 
-            CheckForCollisions(objects
+            ResolveCollisions(objects
                 .Where(o => o.HasChanged));
         }
 
@@ -39,24 +39,26 @@ namespace ASCIIEngine.Core
             Input.SetPressedKey(key);
         }
 
-        private void CheckForCollisions(IEnumerable<GameObject> objects)
+        private void ResolveCollisions(IEnumerable<GameObject> objects)
         {
             var checkedObjs = new List<GameObject>();
-            foreach (var obj in objects)
+            var colliders = objects.ToList();
+            foreach (var obj in colliders)
             {
-                if (checkedObjs.Contains(obj)) continue;
+                if (checkedObjs.Contains(obj))
+                    continue;
 
-                var collidedObjects = GameObjectPoolSingleton.Instance
-                    .GetObjectsAtPosition(obj.Position)
-                    .Where(o => o.HasCollider);
-
-                if (collidedObjects.Count() > 1)
+                foreach (var other in colliders)
                 {
-                    foreach (var o in collidedObjects)
-                        o.OnCollision(collidedObjects.Except(new[] {o}));
-                }
+                    if (CollisionHandler.IsCollisionDetected(obj, other))
+                    {
+                        obj.OnCollision(new[] { other });
+                        other.OnCollision(new[] { obj });
 
-                checkedObjs.AddRange(collidedObjects);
+                        checkedObjs.Add(obj);
+                        checkedObjs.Add(other);
+                    }
+                }
             }
         }
 
