@@ -21,7 +21,6 @@ namespace ASCIIEngine.UnitTests
             baseCore.AddObject(new GameObject
             {
                 Layer = 1,
-                Tag = "test_object1",
                 HasCollider = true,
                 Position = new Vector2D(1, 1)
             });
@@ -29,7 +28,6 @@ namespace ASCIIEngine.UnitTests
             baseCore.AddObject(new TestObject
             {
                 Layer = 1,
-                Tag = "test_object2",
                 HasCollider = true,
                 Position = new Vector2D(1,1),
                 FireOnCollision = () => collided = true
@@ -50,7 +48,6 @@ namespace ASCIIEngine.UnitTests
             baseCore.AddObject(new GameObject
             {
                 Layer = 1,
-                Tag = "test_object1",
                 HasCollider = true,
                 Position = new Vector2D(1, 1)
             });
@@ -58,7 +55,6 @@ namespace ASCIIEngine.UnitTests
             baseCore.AddObject(new TestObject
             {
                 Layer = 1,
-                Tag = "test_object2",
                 HasCollider = true,
                 Position = new Vector2D(1, 2),
                 FireOnCollision = () => collided = true
