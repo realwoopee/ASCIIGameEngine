@@ -65,6 +65,50 @@ namespace ASCIIEngine.UnitTests
             collided.Should().BeFalse();
         }
 
+        [Fact]
+        public void IsCollisionDetected_ShouldReturnTrue()
+        {
+            var firstObject = new GameObject
+            {
+                Layer = 1,
+                HasCollider = true,
+                Position = new Vector2D(1, 1)
+            };
+
+            var secondObject = new TestObject
+            {
+                Layer = 1,
+                HasCollider = true,
+                Position = new Vector2D(1,1)
+            };
+
+            var collided = CollisionHandler.IsCollisionDetected(firstObject, secondObject);
+
+            collided.Should().BeTrue();
+        }
+        
+        [Fact]
+        public void IsCollisionDetected_ShouldReturnFalse()
+        {
+            var firstObject = new GameObject
+            {
+                Layer = 1,
+                HasCollider = true,
+                Position = new Vector2D(0, 0)
+            };
+
+            var secondObject = new TestObject
+            {
+                Layer = 1,
+                HasCollider = true,
+                Position = new Vector2D(1,1)
+            };
+
+            var collided = CollisionHandler.IsCollisionDetected(firstObject, secondObject);
+
+            collided.Should().BeFalse();
+        }
+
         private class TestObject : GameObject
         {
             public Action FireOnCollision;
