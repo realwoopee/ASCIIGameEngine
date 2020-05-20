@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading;
+using ASCIIEngine.CLI;
 using ASCIIEngine.Core;
 using ASCIIEngine.Core.BasicClasses;
-using ASCIIEngine.CLI;
-
-using System.Linq;
-
 using ASCIIGame.Objects;
-
 using Console = Colorful.Console;
-using System.Drawing;
-using System.Threading;
 
 namespace ASCIIGame
 {
-    class Program
+    internal class Program
     {
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var exitProgram = false;
 
@@ -32,7 +27,7 @@ namespace ASCIIGame
             Logger.LineLengthLimit = 32;
             Logger.LineNumberLimit = 18;
 
-            ASCIIEngine.Core.Base core = new Base();
+            Base core = new Base();
 
             core.Initialize();
 
@@ -43,8 +38,8 @@ namespace ASCIIGame
             };
 
 
-            CLIHelper.DrawRect(Vector2D.Zero, new Vector2D(75, 21), new Material { BackgroundColor = Color.Gray }, new Material { BackgroundColor = Color.Black });
-            CLIHelper.DrawRect(Vector2D.Zero, new Vector2D(40, 21), new Material { BackgroundColor = Color.Gray }, new Material { BackgroundColor = Color.Black });
+            CLIHelper.DrawRect(Vector2D.Zero, new Vector2D(75, 21), new Material(Color.Empty, Color.Gray), new Material(Color.Empty, Color.Black));
+            CLIHelper.DrawRect(Vector2D.Zero, new Vector2D(40, 21), new Material(Color.Empty, Color.Gray), new Material(Color.Empty, Color.Black));
 
             Logger.PrintLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
@@ -52,36 +47,36 @@ namespace ASCIIGame
 
             //заполнение мира объектами
             for (int i = 0; i < worldSize.X; i++)
-                for (int j = 0; j < worldSize.Y; j++)
+            for (int j = 0; j < worldSize.Y; j++)
+            {
+                if (rand.Next(100) < 10)
                 {
-                    if (rand.Next(100) < 10)
+                    core.AddObject(new Stone()
                     {
-                        core.AddObject(new Stone()
-                        {
-                            Position = new Vector2D(i, j),
-                            Layer = 2
-                        });
-                        continue;
-                    }
-                    else
-                    {
-                        core.AddObject(new Grass()
-                        {
-                            Position = new Vector2D(i, j),
-                            Layer = 1
-                        });
-                    }
-
-                    if (rand.Next(100) < 5)
-                    {
-                        core.AddObject(new Enemy()
-                        {
-                            target = player,
-                            Position = new Vector2D(i, j),
-                            Layer = 3
-                        });
-                    }
+                        Position = new Vector2D(i, j),
+                        Layer = 2
+                    });
+                    continue;
                 }
+                else
+                {
+                    core.AddObject(new Grass()
+                    {
+                        Position = new Vector2D(i, j),
+                        Layer = 1
+                    });
+                }
+
+                if (rand.Next(100) < 5)
+                {
+                    core.AddObject(new Enemy()
+                    {
+                        target = player,
+                        Position = new Vector2D(i, j),
+                        Layer = 3
+                    });
+                }
+            }
 
             var bonus = new Bonus()
             {
@@ -101,8 +96,8 @@ namespace ASCIIGame
             Console.CursorVisible = false;
 
             buffer = renderer.Render(buffer);
-            CLIHelper.DrawArray(buffer, new Vector2D(1,1));
-            
+            CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
+
             while (isPlaying)
             {
                 Thread.Sleep(33);
@@ -118,7 +113,7 @@ namespace ASCIIGame
 
         private static void PrintScore(int score)
         {
-            Logger.PrintAt("Score: " + score, new Vector2D(42,1));
+            Logger.PrintAt("Score: " + score, new Vector2D(42, 1));
         }
 
         private static void PlaceBonus(Vector2D worldSize, Base core, Bonus bonus)

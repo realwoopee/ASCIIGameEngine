@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIGame.Objects
@@ -10,36 +7,20 @@ namespace ASCIIGame.Objects
     {
         public override bool HasCollider => true;
 
-        public bool _counter;
+        private bool _counter;
 
         public override void Start()
         {
             _counter = false;
-            this.Material = new Material
-            {
-                Character = 'O',
-                ForegroundColor = Color.Yellow
-            };
+            Material = new Material('O', Color.Yellow);
         }
 
         public override void Step()
         {
-            if(_counter)
-            {
-                this.Material = new Material
-                {
-                    Character = 'o',
-                    ForegroundColor = Color.DarkOrange
-                };
-            }
-            else
-            {
-                this.Material = new Material
-                {
-                    Character = 'O',
-                    ForegroundColor = Color.Yellow
-            };
-            }
+            Material = _counter 
+                ? new Material('o', Color.DarkOrange) 
+                : new Material('O', Color.Yellow);
+
             _counter = !_counter;
         }
     }

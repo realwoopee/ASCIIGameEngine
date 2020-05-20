@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using ASCIIEngine.Core;
+﻿using System.Drawing;
 using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIGame.Objects
 {
-    class Grass : GameObject
+    internal class Grass : GameObject
     {
         public override bool HasCollider => false;
 
         public override void Start()
         {
-            this.Material = new Material()
-            {
-                Character = '·',
-                ForegroundColor = Color.DarkGreen
-            };
+            Material = new Material('·', Color.DarkGreen);
         }
     }
 }

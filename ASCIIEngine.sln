@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCIIGame", "ASCIIGame\ASCI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCIIEngine.CLI", "ASCIIEngine.CLI\ASCIIEngine.CLI.csproj", "{D232532F-31EC-4422-BFC9-AFF24752603D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCIIEngine.UnitTests", "ASCIIEngine.UnitTests\ASCIIEngine.UnitTests.csproj", "{A081D58C-3CDF-4022-8079-A053C7AF3472}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D232532F-31EC-4422-BFC9-AFF24752603D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D232532F-31EC-4422-BFC9-AFF24752603D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D232532F-31EC-4422-BFC9-AFF24752603D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A081D58C-3CDF-4022-8079-A053C7AF3472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A081D58C-3CDF-4022-8079-A053C7AF3472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A081D58C-3CDF-4022-8079-A053C7AF3472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A081D58C-3CDF-4022-8079-A053C7AF3472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
