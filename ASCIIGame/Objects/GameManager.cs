@@ -18,9 +18,9 @@ namespace ASCIIGame.Objects
             ResetBonus = resetBonus;
         }
 
-        public override void Step()
+        protected override void Update()
         {
-            base.Step();
+            base.Update();
         }
 
         public void OnBonus()

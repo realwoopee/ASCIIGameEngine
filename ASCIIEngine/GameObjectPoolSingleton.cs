@@ -29,7 +29,7 @@ namespace ASCIIEngine.Core
             }
 
             _objects.Add(gameObject);
-            gameObject.Start();
+            gameObject.Initialize();
         }
 
         public GameObject GetObjectById(string id) =>

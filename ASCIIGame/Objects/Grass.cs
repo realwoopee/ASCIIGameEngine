@@ -7,7 +7,7 @@ namespace ASCIIGame.Objects
     {
         public override bool HasCollider => false;
 
-        public override void Start()
+        protected override void Start()
         {
             Material = new Material('·', Color.DarkGreen);
         }

@@ -33,13 +33,13 @@ namespace ASCIIGame.Objects
             }
         }
 
-        public override void Start()
+        protected override void Start()
         {
             _gameManager = GameObjectPoolSingleton.Instance.GetObjectById("gameManager") as GameManager;
             Material = new Material('@', Color.DarkCyan);
         }
 
-        public override void Step()
+        protected override void Update()
         {
             _prevPos = Position;
             switch (Input.ActiveKey)
