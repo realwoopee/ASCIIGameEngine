@@ -7,11 +7,6 @@ namespace ASCIIEngine.Core
 {
     public static class CollisionHandler
     {
-        public static bool CanMoveTo(Vector2D position)
-        {
-            return !GameObjectPoolSingleton.Instance.GetObjectsAtPosition(position).Any(o => o.HasCollider);
-        }
-
         public static bool IsCollisionDetected(GameObject a, GameObject b)
         {
             // Exit without intersection because a dividing axis is found
@@ -24,7 +19,7 @@ namespace ASCIIEngine.Core
             // No separation axis found, so at least one intersecting axis exists
             return true;
         }
-        
+
         public static void ResolveCollisions(IEnumerable<GameObject> objects)
         {
             var checkedObjs = new List<GameObject>();
@@ -36,21 +31,26 @@ namespace ASCIIEngine.Core
 
                 foreach (var other in colliders)
                 {
+                    if(obj.Equals(other))
+                        continue;
+
                     if (IsCollisionDetected(obj, other))
                     {
                         obj.OnCollision(new[] { other });
                         other.OnCollision(new[] { obj });
-                        
+
                         if (!obj.IsStatic)
                         {
-                            obj.Position -= ((RigidBody2D) obj.Components[typeof(RigidBody2D)]).Direction;
+                            var rBody = (RigidBody2D) obj.Components[typeof(RigidBody2D)];
+                            obj.Position -= rBody.Direction * rBody.Velocity;
                         }
 
                         if (!other.IsStatic)
                         {
-                            other.Position -= ((RigidBody2D) other.Components[typeof(RigidBody2D)]).Direction;
+                            var rBody = (RigidBody2D) other.Components[typeof(RigidBody2D)];
+                            other.Position -= rBody.Direction * rBody.Velocity;
                         }
-                        
+
                         checkedObjs.Add(obj);
                         checkedObjs.Add(other);
                     }

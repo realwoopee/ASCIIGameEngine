@@ -9,6 +9,8 @@ namespace ASCIIEngine.Core.Components
             get => _direction.Normalize;
             set => _direction = value;
         }
+
+        public int Velocity { get; set; } = 0;
  
         private Vector2D _direction;
     }

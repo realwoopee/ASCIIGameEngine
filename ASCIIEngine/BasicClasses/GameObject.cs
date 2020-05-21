@@ -44,7 +44,7 @@ namespace ASCIIEngine.Core.BasicClasses
         
         public Dictionary<Type, Component> Components { get; } = new Dictionary<Type, Component>();
 
-        public bool IsStatic => Components.ContainsKey(typeof(RigidBody2D));
+        public bool IsStatic => !Components.ContainsKey(typeof(RigidBody2D));
 
         public virtual void OnCollision(IEnumerable<GameObject> collidedWith)
         {
