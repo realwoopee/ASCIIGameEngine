@@ -30,13 +30,13 @@ namespace ASCIIGame.Objects
             Material = new Material(Material.Character, Material.ForegroundColor, newBackground);
         }
 
-        public override void Start()
+        protected override void Start()
         {
             Material = new Material('X', Color.Red);
             _counter = 0;
         }
 
-        public override void Step()
+        protected override void Update()
         {
             var tempPos = Position;
 

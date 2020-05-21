@@ -4,8 +4,8 @@ namespace ASCIIEngine.Core.BasicClasses
 {
     public struct Vector2D
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public int X { get; }
+        public int Y { get; }
         public int Length => (int) Math.Sqrt(X * X + Y * Y);
 
         public Vector2D(int x, int y)
@@ -32,6 +32,27 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public static bool operator ==(Vector2D a, Vector2D b) => a.X == b.X && a.Y == b.Y;
         public static bool operator !=(Vector2D a, Vector2D b) => a.X != b.X && a.Y != b.Y;
+
+        public Vector2D Normalize()
+        {
+            if (Length == 0)
+            {
+                return Zero;
+            }
+            
+            return this / Length;
+        }
+
+        public Vector2D[] GetNeighbors()
+        {
+            return new[]
+            {
+                this + Left,
+                this + Down,
+                this + Right,
+                this + Up,
+            };
+        }
 
         public override int GetHashCode()
         {

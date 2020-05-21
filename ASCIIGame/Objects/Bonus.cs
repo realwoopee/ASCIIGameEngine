@@ -9,13 +9,13 @@ namespace ASCIIGame.Objects
 
         private bool _counter;
 
-        public override void Start()
+        protected override void Start()
         {
             _counter = false;
             Material = new Material('O', Color.Yellow);
         }
 
-        public override void Step()
+        protected override void Update()
         {
             Material = _counter 
                 ? new Material('o', Color.DarkOrange) 

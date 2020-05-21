@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIEngine.Core
@@ -17,7 +15,7 @@ namespace ASCIIEngine.Core
         public void Initialize()
         {
             foreach (var o in _objectsPool.Objects)
-                o.Start();
+                o.Initialize();
         }
 
         public void DoStep()
@@ -26,12 +24,10 @@ namespace ASCIIEngine.Core
 
             foreach (var o in objects)
             {
-                o.HasChanged = false;
                 o.Step();
             }
 
-            CheckForCollisions(objects
-                .Where(o => o.HasChanged));
+            CollisionHandler.ResolveCollisions(objects);
         }
 
         public void SetPressedKey(ConsoleKey key)
@@ -39,29 +35,10 @@ namespace ASCIIEngine.Core
             Input.SetPressedKey(key);
         }
 
-        private void CheckForCollisions(IEnumerable<GameObject> objects)
-        {
-            var checkedObjs = new List<GameObject>();
-            foreach (var obj in objects)
-            {
-                if (checkedObjs.Contains(obj)) continue;
-
-                var collidedObjects = GameObjectPoolSingleton.Instance
-                    .GetObjectsAtPosition(obj.Position)
-                    .Where(o => o.HasCollider);
-
-                if (collidedObjects.Count() > 1)
-                {
-                    foreach (var o in collidedObjects)
-                        o.OnCollision(collidedObjects.Except(new[] {o}));
-                }
-
-                checkedObjs.AddRange(collidedObjects);
-            }
-        }
-
         public void AddObject(GameObject gameObject) => _objectsPool.AddObject(gameObject);
+
         public GameObject GetObjectById(string id) => _objectsPool.GetObjectById(id);
+
         public void RemoveObject(string id) => _objectsPool.RemoveObject(id);
     }
 }
