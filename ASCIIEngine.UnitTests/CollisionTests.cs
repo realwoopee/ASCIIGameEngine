@@ -272,8 +272,6 @@ namespace ASCIIEngine.UnitTests
             public Action FireOnCollision;
 
             public override void OnCollision(IEnumerable<GameObject> collidedWith) => FireOnCollision();
-
-            protected override void Update() => HasChanged = true;
         }
     }
 }

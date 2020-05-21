@@ -29,7 +29,7 @@ namespace ASCIIEngine.Core
                 o.Step();
             }
 
-            CollisionHandler.ResolveCollisions(objects.Where(o => o.HasChanged || !o.Components.ContainsKey(typeof(RigidBody2D))));
+            CollisionHandler.ResolveCollisions(objects);
         }
 
         public void SetPressedKey(ConsoleKey key)

@@ -7,33 +7,11 @@ namespace ASCIIEngine.Core.BasicClasses
 {
     public class GameObject
     {
-        private Vector2D _position;
+        public Vector2D Position { get; set; }
 
-        public Vector2D Position
-        {
-            get => _position;
-            set
-            {
-                _position = value;
-                HasChanged = true;
-            }
-        }
-
-        private Material _material;
-
-        public Material Material
-        {
-            get => _material;
-            set
-            {
-                _material = value;
-                HasChanged = true;
-            }
-        }
+        public Material Material { get; set; }
 
         public int Layer { get; set; }
-
-        public bool HasChanged { get; protected set; }
 
         public virtual bool HasCollider { get; set; }
 
@@ -55,7 +33,6 @@ namespace ASCIIEngine.Core.BasicClasses
 
         internal void Step()
         {
-            HasChanged = false;
             foreach (var component in Components.Values)
             {
                 component.Update();
