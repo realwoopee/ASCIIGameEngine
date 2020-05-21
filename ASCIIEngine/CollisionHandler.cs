@@ -7,13 +7,13 @@ namespace ASCIIEngine.Core
 {
     public static class CollisionHandler
     {
-        public static bool IsCollisionDetected(GameObject a, GameObject b)
+        public static bool IsCollisionDetected(GameObject obj, GameObject other)
         {
             // Exit without intersection because a dividing axis is found
-            if (a.Max.X < b.Min.X || a.Min.X > b.Max.X)
+            if (obj.Max.X < other.Min.X || obj.Min.X > other.Max.X)
                 return false;
 
-            if (a.Max.Y < b.Min.Y || a.Min.Y > b.Max.Y)
+            if (obj.Max.Y < other.Min.Y || obj.Min.Y > other.Max.Y)
                 return false;
 
             // No separation axis found, so at least one intersecting axis exists
@@ -31,29 +31,47 @@ namespace ASCIIEngine.Core
 
                 foreach (var other in colliders)
                 {
-                    if(obj.Equals(other))
+                    if (obj.Equals(other))
                         continue;
 
                     if (IsCollisionDetected(obj, other))
                     {
-                        obj.OnCollision(new[] { other });
-                        other.OnCollision(new[] { obj });
-
-                        if (!obj.IsStatic)
+                        // If both are static - ignore collision
+                        if (!obj.IsStatic || !other.IsStatic)
                         {
-                            var rBody = (RigidBody2D) obj.Components[typeof(RigidBody2D)];
-                            obj.Position -= rBody.Direction * rBody.Velocity;
-                        }
+                            obj.OnCollision(new[] {other});
+                            other.OnCollision(new[] {obj});
 
-                        if (!other.IsStatic)
-                        {
-                            var rBody = (RigidBody2D) other.Components[typeof(RigidBody2D)];
-                            other.Position -= rBody.Direction * rBody.Velocity;
-                        }
+                            if (!obj.IsStatic)
+                            {
+                                var rBody = (RigidBody2D) obj.Components[typeof(RigidBody2D)];
 
-                        checkedObjs.Add(obj);
-                        checkedObjs.Add(other);
+                                if (rBody.Direction == Vector2D.Zero)
+                                {
+                                    obj.Position -= Vector2D.Down;
+                                }
+
+                                obj.Position -= rBody.Direction * rBody.Velocity;
+                            }
+
+                            if (!other.IsStatic)
+                            {
+                                var rBody = (RigidBody2D) other.Components[typeof(RigidBody2D)];
+
+                                if (rBody.Direction == Vector2D.Zero)
+                                {
+                                    other.Position -= Vector2D.Up;
+                                }
+
+                                other.Position -= rBody.Direction * rBody.Velocity;
+                            }
+
+                            ResolveCollisions(colliders);
+                        }
                     }
+
+                    checkedObjs.Add(obj);
+                    checkedObjs.Add(other);
                 }
             }
         }

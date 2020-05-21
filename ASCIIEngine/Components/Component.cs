@@ -2,5 +2,6 @@
 {
     public class Component
     {
+        public virtual void Update(){}
     }
 }

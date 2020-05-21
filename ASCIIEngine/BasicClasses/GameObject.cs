@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using ASCIIEngine.Core.Components;
-
+[assembly: InternalsVisibleTo("ASCIIEngine.UnitTests")]
 namespace ASCIIEngine.Core.BasicClasses
 {
     public class GameObject
@@ -58,6 +59,11 @@ namespace ASCIIEngine.Core.BasicClasses
         internal void Step()
         {
             HasChanged = false;
+            foreach (var component in Components.Values)
+            {
+                component.Update();
+            }
+
             Update();
         }
         

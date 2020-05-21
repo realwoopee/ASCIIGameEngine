@@ -32,8 +32,16 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public static bool operator ==(Vector2D a, Vector2D b) => a.X == b.X && a.Y == b.Y;
         public static bool operator !=(Vector2D a, Vector2D b) => a.X != b.X && a.Y != b.Y;
-        
-        public Vector2D Normalize => this / Length;
+
+        public Vector2D Normalize()
+        {
+            if (Length == 0)
+            {
+                return Zero;
+            }
+            
+            return this / Length;
+        }
 
         public override int GetHashCode()
         {
