@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
+using ASCIIEngine.Core.Components;
 
 namespace ASCIIEngine.Core
 {
@@ -28,7 +29,7 @@ namespace ASCIIEngine.Core
                 o.Step();
             }
 
-            CollisionHandler.ResolveCollisions(objects.Where(o => o.HasChanged || o.IsStatic));
+            CollisionHandler.ResolveCollisions(objects.Where(o => o.HasChanged || !o.Components.ContainsKey(typeof(RigidBody2D))));
         }
 
         public void SetPressedKey(ConsoleKey key)

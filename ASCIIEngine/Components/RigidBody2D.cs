@@ -10,7 +10,7 @@ namespace ASCIIEngine.Core.Components
             set => _direction = value;
         }
 
-        public int Velocity { get; set; } = 0;
+        public int Velocity { get; set; }
  
         private Vector2D _direction;
         private GameObject _parent;
@@ -20,9 +20,19 @@ namespace ASCIIEngine.Core.Components
             _parent = parent;
         }
 
-        public override void Update()
+        internal override void Update()
         {
             _parent.Position += _direction;
+        }
+
+        internal void OnCollision(Vector2D freePosition)
+        {
+            _parent.Position = freePosition;
+        }
+        
+        internal void OnCollision()
+        {
+            _parent.Position -= Direction * Velocity;
         }
     }
 }

@@ -9,11 +9,14 @@ namespace ASCIIEngine.Core
     {
         public static bool IsCollisionDetected(GameObject obj, GameObject other)
         {
+            var max = obj.Size + obj.Position;
+            var otherMax = other.Size + other.Position;
+
             // Exit without intersection because a dividing axis is found
-            if (obj.Max.X < other.Min.X || obj.Min.X > other.Max.X)
+            if (max.X < other.Position.X || obj.Position.X > otherMax.X)
                 return false;
 
-            if (obj.Max.Y < other.Min.Y || obj.Min.Y > other.Max.Y)
+            if (max.Y < other.Position.Y || obj.Position.Y > otherMax.Y)
                 return false;
 
             // No separation axis found, so at least one intersecting axis exists
@@ -37,41 +40,35 @@ namespace ASCIIEngine.Core
                     if (IsCollisionDetected(obj, other))
                     {
                         // If both are static - ignore collision
-                        if (!obj.IsStatic || !other.IsStatic)
+                        if (obj.Components.ContainsKey(typeof(RigidBody2D)) || other.Components.ContainsKey(typeof(RigidBody2D)))
                         {
                             obj.OnCollision(new[] {other});
                             other.OnCollision(new[] {obj});
 
-                            if (!obj.IsStatic)
-                            {
-                                var rBody = (RigidBody2D) obj.Components[typeof(RigidBody2D)];
-
-                                if (rBody.Direction == Vector2D.Zero)
-                                {
-                                    obj.Position -= Vector2D.Down;
-                                }
-
-                                obj.Position -= rBody.Direction * rBody.Velocity;
-                            }
-
-                            if (!other.IsStatic)
-                            {
-                                var rBody = (RigidBody2D) other.Components[typeof(RigidBody2D)];
-
-                                if (rBody.Direction == Vector2D.Zero)
-                                {
-                                    other.Position -= Vector2D.Up;
-                                }
-
-                                other.Position -= rBody.Direction * rBody.Velocity;
-                            }
-
+                            ProcessRigidBody(obj, Vector2D.Up);
+                            ProcessRigidBody(other, Vector2D.Down);
                             ResolveCollisions(colliders);
                         }
                     }
 
                     checkedObjs.Add(obj);
                     checkedObjs.Add(other);
+                }
+            }
+        }
+
+        private static void ProcessRigidBody(GameObject obj, Vector2D direction)
+        {
+            if (obj.Components.ContainsKey(typeof(RigidBody2D)))
+            {
+                var rBody = (RigidBody2D) obj.Components[typeof(RigidBody2D)];
+                if (rBody.Direction == Vector2D.Zero)
+                {
+                    rBody.OnCollision(direction);
+                }
+                else
+                {
+                    rBody.OnCollision();
                 }
             }
         }

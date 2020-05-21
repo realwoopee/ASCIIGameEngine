@@ -33,19 +33,16 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public int Layer { get; set; }
 
-        public bool HasChanged { get; set; }
+        public bool HasChanged { get; protected set; }
 
         public virtual bool HasCollider { get; set; }
 
         public virtual string Tag { get; set; }
-        
-        public Vector2D Min => Position;
-        
-        public Vector2D Max => Position;
-        
-        public Dictionary<Type, Component> Components { get; } = new Dictionary<Type, Component>();
 
-        public bool IsStatic => !Components.ContainsKey(typeof(RigidBody2D));
+        // At now we have only dots, so max is equivalent to position
+        public Vector2D Size => Vector2D.Zero;
+
+        public Dictionary<Type, Component> Components { get; } = new Dictionary<Type, Component>();
 
         public virtual void OnCollision(IEnumerable<GameObject> collidedWith)
         {
