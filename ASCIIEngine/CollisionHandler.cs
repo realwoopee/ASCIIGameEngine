@@ -40,7 +40,7 @@ namespace ASCIIEngine.Core
                     if (IsCollisionDetected(obj, other))
                     {
                         // If both are static - ignore collision
-                        if (obj.Components.ContainsKey(typeof(RigidBody2D)) || other.Components.ContainsKey(typeof(RigidBody2D)))
+                        if (obj.ContainsComponent<RigidBody2D>() || other.ContainsComponent<RigidBody2D>())
                         {
                             obj.OnCollision(new[] {other});
                             other.OnCollision(new[] {obj});
@@ -59,17 +59,17 @@ namespace ASCIIEngine.Core
 
         private static void ProcessRigidBody(GameObject obj, Vector2D direction)
         {
-            if (obj.Components.ContainsKey(typeof(RigidBody2D)))
+            var rBody = obj.GetComponent<RigidBody2D>();
+            if (rBody == null) 
+                return;
+            
+            if (rBody.Direction == Vector2D.Zero)
             {
-                var rBody = (RigidBody2D) obj.Components[typeof(RigidBody2D)];
-                if (rBody.Direction == Vector2D.Zero)
-                {
-                    rBody.OnCollision(direction);
-                }
-                else
-                {
-                    rBody.OnCollision();
-                }
+                rBody.OnCollision(direction);
+            }
+            else
+            {
+                rBody.OnCollision();
             }
         }
     }

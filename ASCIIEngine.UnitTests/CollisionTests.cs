@@ -102,7 +102,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, -1)
             };
 
-            firstObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(firstObject)
+            firstObject.AddComponent(new RigidBody2D(firstObject)
             {
                 Direction = Vector2D.Right,
                 Velocity = 1
@@ -115,7 +115,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, 1)
             };
 
-            secondObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(secondObject)
+            secondObject.AddComponent(new RigidBody2D(secondObject)
             {
                 Direction = Vector2D.Left,
                 Velocity = 1
@@ -140,7 +140,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, 0)
             };
 
-            firstObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(firstObject)
+            firstObject.AddComponent(new RigidBody2D(firstObject)
             {
                 Direction = Vector2D.Left,
                 Velocity = 1
@@ -153,7 +153,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, 1)
             };
 
-            secondObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(secondObject)
+            secondObject.AddComponent(new RigidBody2D(secondObject)
             {
                 Direction = Vector2D.Right,
                 Velocity = 1
@@ -178,7 +178,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, 0)
             };
 
-            firstObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(firstObject)
+            firstObject.AddComponent(new RigidBody2D(firstObject)
             {
                 Direction = Vector2D.Right,
                 Velocity = 1
@@ -210,7 +210,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, 0)
             };
 
-            firstObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(firstObject)
+            firstObject.AddComponent(new RigidBody2D(firstObject)
             {
                 Direction = Vector2D.Down,
                 Velocity = 1
@@ -242,7 +242,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, 0)
             };
 
-            firstObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(firstObject)
+            firstObject.AddComponent(new RigidBody2D(firstObject)
             {
                 Direction = Vector2D.Zero,
                 Velocity = 0
@@ -255,7 +255,7 @@ namespace ASCIIEngine.UnitTests
                 Position = new Vector2D(0, 0)
             };
 
-            secondObject.Components.Add(typeof(RigidBody2D), new RigidBody2D(secondObject)
+            secondObject.AddComponent(new RigidBody2D(secondObject)
             {
                 Direction = Vector2D.Zero,
                 Velocity = 0

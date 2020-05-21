@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
-using ASCIIEngine.Core.Components;
 
 namespace ASCIIEngine.Core
 {

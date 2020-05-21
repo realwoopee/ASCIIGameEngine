@@ -20,10 +20,30 @@ namespace ASCIIEngine.Core.BasicClasses
         // At now we have only dots, so max is equivalent to position
         public Vector2D Size => Vector2D.Zero;
 
-        public Dictionary<Type, Component> Components { get; } = new Dictionary<Type, Component>();
+        private readonly Dictionary<Type, Component> _components = new Dictionary<Type, Component>();
 
         public virtual void OnCollision(IEnumerable<GameObject> collidedWith)
         {
+        }
+
+        public T GetComponent<T>() where T : Component
+        {
+            if (ContainsComponent<T>())
+            {
+                return (T) _components[typeof(T)];
+            }
+
+            return null;
+        }
+
+        public void AddComponent<T>(T component) where T : Component
+        {
+            _components.Add(typeof(T), component);
+        }
+
+        public bool ContainsComponent<T>()
+        {
+            return _components.ContainsKey(typeof(T));
         }
 
         internal void Initialize()
@@ -33,7 +53,7 @@ namespace ASCIIEngine.Core.BasicClasses
 
         internal void Step()
         {
-            foreach (var component in Components.Values)
+            foreach (var component in _components.Values)
             {
                 component.Update();
             }
