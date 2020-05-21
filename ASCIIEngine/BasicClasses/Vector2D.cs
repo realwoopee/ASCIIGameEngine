@@ -4,8 +4,8 @@ namespace ASCIIEngine.Core.BasicClasses
 {
     public struct Vector2D
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public int X { get; }
+        public int Y { get; }
         public int Length => (int) Math.Sqrt(X * X + Y * Y);
 
         public Vector2D(int x, int y)
@@ -41,6 +41,17 @@ namespace ASCIIEngine.Core.BasicClasses
             }
             
             return this / Length;
+        }
+
+        public Vector2D[] GetNeighbors()
+        {
+            return new[]
+            {
+                this + Left,
+                this + Down,
+                this + Right,
+                this + Up,
+            };
         }
 
         public override int GetHashCode()

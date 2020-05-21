@@ -45,8 +45,10 @@ namespace ASCIIEngine.Core
                             obj.OnCollision(new[] {other});
                             other.OnCollision(new[] {obj});
 
-                            ProcessRigidBody(obj, Vector2D.Up);
-                            ProcessRigidBody(other, Vector2D.Down);
+                            var colliderPositions = colliders.Select(c => c.Position).ToList();
+                            ProcessRigidBody(obj, GetUnoccupiedCell(obj.Position, colliderPositions));
+                            colliderPositions.Add(obj.Position);
+                            ProcessRigidBody(other, GetUnoccupiedCell(other.Position, colliderPositions));
                             ResolveCollisions(colliders);
                         }
                     }
@@ -63,7 +65,7 @@ namespace ASCIIEngine.Core
             if (rBody == null) 
                 return;
             
-            if (rBody.Direction == Vector2D.Zero)
+            if (rBody.Velocity == Vector2D.Zero)
             {
                 rBody.OnCollision(direction);
             }
@@ -71,6 +73,13 @@ namespace ASCIIEngine.Core
             {
                 rBody.OnCollision();
             }
+        }
+
+        private static Vector2D GetUnoccupiedCell(Vector2D currentCell, IEnumerable<Vector2D> collidedCells)
+        {
+            var neighborCells = currentCell.GetNeighbors();
+            var unoccupiedCells = neighborCells.Except(collidedCells).ToList();
+            return unoccupiedCells.Count == 0 ? Vector2D.Zero : unoccupiedCells.First();
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using ASCIIEngine.Core;
 using ASCIIEngine.Core.BasicClasses;
 using ASCIIEngine.Core.Components;
@@ -104,8 +102,7 @@ namespace ASCIIEngine.UnitTests
 
             firstObject.AddComponent(new RigidBody2D(firstObject)
             {
-                Direction = Vector2D.Right,
-                Velocity = 1
+                Velocity = Vector2D.Right,
             });
 
             var secondObject = new GameObject
@@ -117,8 +114,7 @@ namespace ASCIIEngine.UnitTests
 
             secondObject.AddComponent(new RigidBody2D(secondObject)
             {
-                Direction = Vector2D.Left,
-                Velocity = 1
+                Velocity = Vector2D.Left,
             });
 
             firstObject.Step();
@@ -142,8 +138,7 @@ namespace ASCIIEngine.UnitTests
 
             firstObject.AddComponent(new RigidBody2D(firstObject)
             {
-                Direction = Vector2D.Left,
-                Velocity = 1
+                Velocity = Vector2D.Left,
             });
 
             var secondObject = new GameObject
@@ -155,8 +150,7 @@ namespace ASCIIEngine.UnitTests
 
             secondObject.AddComponent(new RigidBody2D(secondObject)
             {
-                Direction = Vector2D.Right,
-                Velocity = 1
+                Velocity = Vector2D.Right,
             });
 
             firstObject.Step();
@@ -180,8 +174,7 @@ namespace ASCIIEngine.UnitTests
 
             firstObject.AddComponent(new RigidBody2D(firstObject)
             {
-                Direction = Vector2D.Right,
-                Velocity = 1
+                Velocity = Vector2D.Right,
             });
 
             var secondObject = new GameObject
@@ -212,8 +205,7 @@ namespace ASCIIEngine.UnitTests
 
             firstObject.AddComponent(new RigidBody2D(firstObject)
             {
-                Direction = Vector2D.Down,
-                Velocity = 1
+                Velocity = Vector2D.Down,
             });
 
             var secondObject = new GameObject
@@ -244,8 +236,7 @@ namespace ASCIIEngine.UnitTests
 
             firstObject.AddComponent(new RigidBody2D(firstObject)
             {
-                Direction = Vector2D.Zero,
-                Velocity = 0
+                Velocity = Vector2D.Zero,
             });
 
             var secondObject = new GameObject
@@ -257,13 +248,12 @@ namespace ASCIIEngine.UnitTests
 
             secondObject.AddComponent(new RigidBody2D(secondObject)
             {
-                Direction = Vector2D.Zero,
-                Velocity = 0
+                Velocity = Vector2D.Zero,
             });
 
             CollisionHandler.ResolveCollisions(new[] { firstObject, secondObject });
 
-            firstObject.Position.Should().BeEquivalentTo(new Vector2D(-1, 0));
+            firstObject.Position.Should().BeEquivalentTo(new Vector2D(0, -1));
             secondObject.Position.Should().BeEquivalentTo(new Vector2D(1, 0));
         }
 

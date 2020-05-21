@@ -4,15 +4,8 @@ namespace ASCIIEngine.Core.Components
 {
     public class RigidBody2D : Component
     {
-        public Vector2D Direction
-        {
-            get => _direction.Normalize();
-            set => _direction = value;
-        }
+        public Vector2D Velocity { get; set; }
 
-        public int Velocity { get; set; }
- 
-        private Vector2D _direction;
         private GameObject _parent;
 
         public RigidBody2D(GameObject parent)
@@ -22,7 +15,7 @@ namespace ASCIIEngine.Core.Components
 
         internal override void Update()
         {
-            _parent.Position += _direction * Velocity;
+            _parent.Position += Velocity;
         }
 
         internal void OnCollision(Vector2D freePosition)
@@ -32,7 +25,7 @@ namespace ASCIIEngine.Core.Components
         
         internal void OnCollision()
         {
-            _parent.Position -= Direction * Velocity;
+            _parent.Position -= Velocity.Normalize();
         }
     }
 }
