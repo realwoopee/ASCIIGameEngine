@@ -22,7 +22,7 @@ namespace ASCIIEngine.Core.Components
 
         internal override void Update()
         {
-            _parent.Position += _direction;
+            _parent.Position += _direction * Velocity;
         }
 
         internal void OnCollision(Vector2D freePosition)
