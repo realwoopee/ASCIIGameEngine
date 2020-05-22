@@ -22,7 +22,7 @@ namespace ASCIIEngine.Core.BasicClasses
         public static Vector2D operator -(Vector2D a) => a * -1;
 
         public static Vector2D operator *(Vector2D a, int num) => new Vector2D(a.X * num, a.Y * num);
-        public static Vector2D operator /(Vector2D a, int num) => new Vector2D(a.X / num, a.Y / num);
+        public static Vector2D operator /(Vector2D a, int num) => new Vector2D((int)MathF.Round((float)a.X / num), (int)MathF.Round((float)a.Y / num));
 
         public static bool operator >(Vector2D a, Vector2D b) => a.X > b.X && a.Y > b.Y;
         public static bool operator <(Vector2D a, Vector2D b) => a.X < b.X && a.Y < b.Y;
@@ -67,7 +67,7 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public override string ToString()
         {
-            return "{x:" + X + ", y:" + Y + "}";
+            return "x:" + X + ", y:" + Y;
         }
 
         public override bool Equals(object obj)

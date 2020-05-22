@@ -15,5 +15,40 @@ namespace ASCIIEngine.UnitTests.BasicClasses
             vector.Length.Should().Be((int)Math.Sqrt(3 * 3 + 4 * 4));
             vector.Length.Should().Be((int) Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y));
         }
+
+        [Fact]
+        public void VectorNormalized_ShouldBeRight()
+        {
+            new Vector2D(0, 0).Normalize().Should().Be(new Vector2D(0, 0));
+
+            new Vector2D(1, 0).Normalize().Should().Be(new Vector2D(1, 0));
+            new Vector2D(0, 1).Normalize().Should().Be(new Vector2D(0, 1));
+            new Vector2D(-1, 0).Normalize().Should().Be(new Vector2D(-1, 0));
+            new Vector2D(0, -1).Normalize().Should().Be(new Vector2D(0, -1));
+
+            new Vector2D(1, 1).Normalize().Should().Be(new Vector2D(1, 1));
+            new Vector2D(-1, 1).Normalize().Should().Be(new Vector2D(-1, 1));
+            new Vector2D(1, -1).Normalize().Should().Be(new Vector2D(1, -1));
+            new Vector2D(-1, -1).Normalize().Should().Be(new Vector2D(-1, -1));
+
+            new Vector2D(3, 1).Normalize().Should().Be(new Vector2D(1, 0));
+            new Vector2D(-3, 1).Normalize().Should().Be(new Vector2D(-1, 0));
+            new Vector2D(1, -3).Normalize().Should().Be(new Vector2D(0, -1));
+            new Vector2D(-1, -3).Normalize().Should().Be(new Vector2D(0, -1));
+            new Vector2D(-3, -1).Normalize().Should().Be(new Vector2D(-1, 0));
+            new Vector2D(3, -1).Normalize().Should().Be(new Vector2D(1, 0));
+            new Vector2D(-1, 3).Normalize().Should().Be(new Vector2D(0, 1));
+            new Vector2D(1, 3).Normalize().Should().Be(new Vector2D(0, 1));
+
+            new Vector2D(2, 3).Normalize().Should().Be(new Vector2D(1, 1));
+            new Vector2D(-2, -3).Normalize().Should().Be(new Vector2D(-1, -1));
+            new Vector2D(2, -3).Normalize().Should().Be(new Vector2D(1, -1));
+            new Vector2D(-2, 3).Normalize().Should().Be(new Vector2D(-1, 1));
+
+            new Vector2D(2, 4).Normalize().Should().Be(new Vector2D(0, 1));
+            new Vector2D(-2, -4).Normalize().Should().Be(new Vector2D(-0, -1));
+            new Vector2D(2, -4).Normalize().Should().Be(new Vector2D(0, -1));
+            new Vector2D(-2, 4).Normalize().Should().Be(new Vector2D(-0, 1));
+        }
     }
 }
