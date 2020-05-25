@@ -26,6 +26,8 @@ namespace ASCIIEngine.Core
         public static void ResolveCollisions(IEnumerable<GameObject> objects)
         {
             var colliders = objects.ToList();
+            var collidedObjects = new List<(GameObject obj, GameObject other)>();
+
             foreach (var obj in colliders)
             {
                 foreach (var other in colliders)
@@ -34,20 +36,28 @@ namespace ASCIIEngine.Core
                         continue;
 
                     // If both are static - ignore collision
-                    if (!obj.ContainsComponent<RigidBody2D>() && !other.ContainsComponent<RigidBody2D>()) 
+                    if (!obj.ContainsComponent<RigidBody2D>() && !other.ContainsComponent<RigidBody2D>())
                         continue;
 
-                    if (!IsCollisionDetected(obj, other)) 
+                    if (!IsCollisionDetected(obj, other))
                         continue;
 
-                    var colliderPositions = colliders.Select(c => c.Position).ToList();
-                    ProcessRigidBody(obj, colliderPositions);
-                    colliderPositions.Add(obj.Position);
-                    ProcessRigidBody(other, colliderPositions);
-
-                    obj.OnCollision(new[] {other});
-                    other.OnCollision(new[] {obj});
+                    if (!collidedObjects.Contains((other, obj)))
+                    {
+                        collidedObjects.Add((obj, other));
+                    }
                 }
+            }
+
+            foreach (var (obj, other) in collidedObjects)
+            {
+                var colliderPositions = colliders.Select(c => c.Position).ToList();
+                ProcessRigidBody(obj, colliderPositions);
+                colliderPositions.Add(obj.Position);
+                ProcessRigidBody(other, colliderPositions);
+
+                obj.OnCollision(new[] {other});
+                other.OnCollision(new[] {obj});
             }
         }
 

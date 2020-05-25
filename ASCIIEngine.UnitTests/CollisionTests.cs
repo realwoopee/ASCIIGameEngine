@@ -233,6 +233,48 @@ namespace ASCIIEngine.UnitTests
             secondObject.Position.Should().BeEquivalentTo(new Vector2D(1, 0));
         }
 
+        [Fact]
+        public void ResolveThreeColliders_ShouldTriggerOnCollisionTwoTimeForEachObject()
+        {
+            int firstCounter = 0, secondCounter = 0, thirdCounter = 0;
+            
+            var firstObject = new TestObject
+            {
+                Layer = 1,
+                HasCollider = true,
+                Position = new Vector2D(0, 0),
+                FireOnCollision = () => firstCounter++
+            };
+
+            firstObject.AddComponent<RigidBody2D>().Velocity = Vector2D.Zero;
+
+            var secondObject = new TestObject
+            {
+                Layer = 1,
+                HasCollider = true,
+                Position = new Vector2D(0, 0),
+                FireOnCollision = () => secondCounter++
+            };
+
+            secondObject.AddComponent<RigidBody2D>().Velocity = Vector2D.Zero;
+            
+            var thirdObject = new TestObject
+            {
+                Layer = 1,
+                HasCollider = true,
+                Position = new Vector2D(0, 0),
+                FireOnCollision = () => thirdCounter++
+            };
+            
+            thirdObject.AddComponent<RigidBody2D>().Velocity = Vector2D.Zero;
+
+            CollisionHandler.ResolveCollisions(new[] {firstObject, secondObject, thirdObject});
+
+            firstCounter.Should().Be(2);
+            secondCounter.Should().Be(2);
+            thirdCounter.Should().Be(2);
+        }
+
         private class TestObject : GameObject
         {
             public Action FireOnCollision;

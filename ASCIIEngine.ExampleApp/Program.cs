@@ -70,6 +70,18 @@ namespace ASCIIEngine.ExampleApp
                 Position = new Vector2D(2, 4),
                 Layer = 3
             });
+            
+            core.AddObject(new Entity
+            {
+                Position = new Vector2D(2, 5),
+                Layer = 3
+            });
+            
+            core.AddObject(new Entity
+            {
+                Position = new Vector2D(2, 6),
+                Layer = 3
+            });
 
             buffer = renderer.Render(buffer);
             CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
