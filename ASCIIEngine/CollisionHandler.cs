@@ -25,49 +25,41 @@ namespace ASCIIEngine.Core
 
         public static void ResolveCollisions(IEnumerable<GameObject> objects)
         {
-            var checkedObjs = new List<GameObject>();
             var colliders = objects.ToList();
             foreach (var obj in colliders)
             {
-                if (checkedObjs.Contains(obj))
-                    continue;
-
                 foreach (var other in colliders)
                 {
                     if (obj.Equals(other))
                         continue;
 
-                    if (IsCollisionDetected(obj, other))
-                    {
-                        // If both are static - ignore collision
-                        if (obj.ContainsComponent<RigidBody2D>() || other.ContainsComponent<RigidBody2D>())
-                        {
-                            obj.OnCollision(new[] {other});
-                            other.OnCollision(new[] {obj});
+                    // If both are static - ignore collision
+                    if (!obj.ContainsComponent<RigidBody2D>() && !other.ContainsComponent<RigidBody2D>()) 
+                        continue;
 
-                            var colliderPositions = colliders.Select(c => c.Position).ToList();
-                            ProcessRigidBody(obj, GetUnoccupiedCell(obj.Position, colliderPositions));
-                            colliderPositions.Add(obj.Position);
-                            ProcessRigidBody(other, GetUnoccupiedCell(other.Position, colliderPositions));
-                            ResolveCollisions(colliders);
-                        }
-                    }
+                    if (!IsCollisionDetected(obj, other)) 
+                        continue;
 
-                    checkedObjs.Add(obj);
-                    checkedObjs.Add(other);
+                    var colliderPositions = colliders.Select(c => c.Position).ToList();
+                    ProcessRigidBody(obj, colliderPositions);
+                    colliderPositions.Add(obj.Position);
+                    ProcessRigidBody(other, colliderPositions);
+
+                    obj.OnCollision(new[] {other});
+                    other.OnCollision(new[] {obj});
                 }
             }
         }
 
-        private static void ProcessRigidBody(GameObject obj, Vector2D direction)
+        private static void ProcessRigidBody(GameObject obj, IEnumerable<Vector2D> collidedCells)
         {
             var rBody = obj.GetComponent<RigidBody2D>();
-            if (rBody == null) 
+            if (rBody == null)
                 return;
-            
+
             if (rBody.Velocity == Vector2D.Zero)
             {
-                rBody.OnCollision(direction);
+                rBody.OnCollision(GetUnoccupiedCell(obj.Position, collidedCells));
             }
             else
             {

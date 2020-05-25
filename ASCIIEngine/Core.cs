@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIEngine.Core
@@ -27,7 +28,7 @@ namespace ASCIIEngine.Core
                 o.Step();
             }
 
-            CollisionHandler.ResolveCollisions(objects);
+            CollisionHandler.ResolveCollisions(objects.Where(o => o.HasCollider));
         }
 
         public void SetPressedKey(ConsoleKey key)
