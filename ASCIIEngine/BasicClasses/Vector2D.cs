@@ -50,7 +50,7 @@ namespace ASCIIEngine.Core.BasicClasses
                 this + Left,
                 this + Down,
                 this + Right,
-                this + Up,
+                this + Up
             };
         }
 

@@ -50,5 +50,15 @@ namespace ASCIIEngine.UnitTests.BasicClasses
             new Vector2D(2, -4).Normalize().Should().Be(new Vector2D(0, -1));
             new Vector2D(-2, 4).Normalize().Should().Be(new Vector2D(-0, 1));
         }
+
+        [Fact]
+        public void VectorsSubtraction_ShouldReturnDirectionBetweenVectors()
+        {
+            var firstVector = new Vector2D(1, 2);
+            var secondVector = new Vector2D(4, 3);
+
+            var direction = secondVector - firstVector;
+            direction.Should().BeEquivalentTo(new Vector2D(3, 1));
+        }
     }
 }
