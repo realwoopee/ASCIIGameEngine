@@ -11,16 +11,11 @@ namespace ASCIIGame.Objects
     {
         public override bool HasCollider => true;
 
-        private Vector2D _prevPos;
         private GameManager _gameManager;
 
         public override void OnCollision(IEnumerable<GameObject> collidedWith)
         {
             var collidedObjects = collidedWith.ToList();
-            if (collidedObjects.Any(o => o is Stone))
-            {
-                Position = _prevPos;
-            }
 
             if (collidedObjects.Any(o => o is Bonus))
             {
@@ -41,22 +36,7 @@ namespace ASCIIGame.Objects
 
         protected override void Update()
         {
-            _prevPos = Position;
-            switch (Input.ActiveKey)
-            {
-                case ConsoleKey.UpArrow:
-                    Position += Vector2D.Up;
-                    break;
-                case ConsoleKey.DownArrow:
-                    Position += Vector2D.Down;
-                    break;
-                case ConsoleKey.LeftArrow:
-                    Position += Vector2D.Left;
-                    break;
-                case ConsoleKey.RightArrow:
-                    Position += Vector2D.Right;
-                    break;
-            }
+            Position += Input.ActiveDirection;
         }
     }
 }
