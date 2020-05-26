@@ -28,7 +28,7 @@ namespace ASCIIEngine.Core
                 o.Step();
             }
 
-            CollisionHandler.ResolveCollisions(objects.Where(o => o.HasCollider));
+            CollisionHandler.ResolveCollisions(objects.Where(o => o.HasCollider || o.HasTrigger));
         }
 
         public void SetPressedKey(ConsoleKey key)

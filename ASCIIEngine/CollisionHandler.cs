@@ -34,14 +34,21 @@ namespace ASCIIEngine.Core
                 {
                     if (obj.Equals(other))
                         continue;
-
+                    
                     // If both are static - ignore collision
                     if (!obj.ContainsComponent<RigidBody2D>() && !other.ContainsComponent<RigidBody2D>())
                         continue;
 
                     if (!IsCollisionDetected(obj, other))
                         continue;
-
+                    
+                    if (other.HasTrigger)
+                    {
+                        obj.OnTrigger(other);
+                        other.OnTrigger(obj);
+                        continue;
+                    }
+                    
                     if (!collidedObjects.Contains((other, obj)))
                     {
                         collidedObjects.Add((obj, other));

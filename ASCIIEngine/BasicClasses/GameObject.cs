@@ -17,6 +17,8 @@ namespace ASCIIEngine.Core.BasicClasses
 
         public virtual bool HasCollider { get; set; }
 
+        public virtual bool HasTrigger => false;
+
         public virtual string Tag { get; set; }
 
         // At now we have only dots, so max is equivalent to position
@@ -25,6 +27,10 @@ namespace ASCIIEngine.Core.BasicClasses
         private readonly Dictionary<Type, Component> _components = new Dictionary<Type, Component>();
 
         public virtual void OnCollision(IEnumerable<GameObject> collidedWith)
+        {
+        }
+        
+        public virtual void OnTrigger(GameObject other)
         {
         }
 
