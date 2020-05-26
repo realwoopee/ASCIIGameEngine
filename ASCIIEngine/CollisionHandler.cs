@@ -26,9 +26,8 @@ namespace ASCIIEngine.Core
         public static void ResolveCollisions(IEnumerable<GameObject> objects)
         {
             var colliders = objects.ToList();
-            var colliderPositions = colliders.Select(c => c.Position).ToList();
             var collidedObjects = new List<(GameObject obj, GameObject other)>();
-            
+
             foreach (var obj in colliders)
             {
                 foreach (var other in colliders)
@@ -52,6 +51,7 @@ namespace ASCIIEngine.Core
 
             foreach (var (obj, other) in collidedObjects)
             {
+                var colliderPositions = colliders.Select(c => c.Position).ToList();
                 ProcessRigidBody(obj, colliderPositions);
                 colliderPositions.Add(obj.Position);
                 ProcessRigidBody(other, colliderPositions);
