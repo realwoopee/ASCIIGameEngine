@@ -19,6 +19,11 @@ namespace ASCIIEngine.Core
 
         public static bool GameInput { get; private set; }
 
+        static Input()
+        {
+            GameInput = true;
+        }
+
         public static void SetPressedKey(ConsoleKey key)
         {
             ActiveKey = key;
