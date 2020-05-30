@@ -120,7 +120,7 @@ namespace ASCIIGame
         {
             var rand = new Random();
             var bonusPos = new Vector2D(rand.Next(worldSize.X), rand.Next(worldSize.Y));
-            var objs = GameObjectPoolSingleton.Instance.GetObjectsAtPosition(bonusPos);
+            var objs = GameObjectsListSingleton.Instance.GetObjectsAtPosition(bonusPos);
             if (!objs.All(o => o is Stone))
             {
                 bonus.Position = bonusPos;

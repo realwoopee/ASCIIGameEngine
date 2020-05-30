@@ -6,11 +6,12 @@ namespace ASCIIEngine.Core
 {
     public class Base
     {
-        private readonly GameObjectPoolSingleton _objectsPool;
+        private readonly GameObjectsListSingleton _objectsPool;
 
         public Base()
         {
-            _objectsPool = GameObjectPoolSingleton.Instance;
+            _objectsPool = GameObjectsListSingleton.Instance;
+            _objectsPool.Initialize();
         }
 
         public void Initialize()
