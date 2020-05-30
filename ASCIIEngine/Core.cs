@@ -1,15 +1,17 @@
 using System;
+using System.Linq;
 using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIEngine.Core
 {
     public class Base
     {
-        private readonly GameObjectPoolSingleton _objectsPool;
+        private readonly GameObjectsListSingleton _objectsPool;
 
         public Base()
         {
-            _objectsPool = GameObjectPoolSingleton.Instance;
+            _objectsPool = GameObjectsListSingleton.Instance;
+            _objectsPool.Initialize();
         }
 
         public void Initialize()
@@ -27,7 +29,7 @@ namespace ASCIIEngine.Core
                 o.Step();
             }
 
-            CollisionHandler.ResolveCollisions(objects);
+            CollisionHandler.ResolveCollisions(objects.Where(o => o.HasCollider || o.HasTrigger));
         }
 
         public void SetPressedKey(ConsoleKey key)

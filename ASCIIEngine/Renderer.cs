@@ -12,7 +12,7 @@ namespace ASCIIEngine.Core
         public Renderer(Vector2D size)
         {
             Size = size;
-            _objects = GameObjectPoolSingleton.Instance.Objects;
+            _objects = GameObjectsListSingleton.Instance.Objects;
         }
 
         public Material[,] Render(Material[,] buffer)

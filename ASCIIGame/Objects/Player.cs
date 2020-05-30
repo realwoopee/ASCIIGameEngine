@@ -30,7 +30,7 @@ namespace ASCIIGame.Objects
 
         protected override void Start()
         {
-            _gameManager = GameObjectPoolSingleton.Instance.GetObjectById("gameManager") as GameManager;
+            _gameManager = GameObjectsListSingleton.Instance.GetObjectById("gameManager") as GameManager;
             Material = new Material('@', Color.DarkCyan);
         }
 

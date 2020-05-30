@@ -1,7 +1,21 @@
-﻿namespace ASCIIEngine.Core.Components
+﻿using ASCIIEngine.Core.BasicClasses;
+
+namespace ASCIIEngine.Core.Components
 {
-    public class Component
+    public abstract class Component
     {
+        protected readonly GameObject Parent;
+
+        protected Component(GameObject parent)
+        {
+            Parent = parent;
+        }
+
+        protected Component()
+        {
+            
+        }
+
         internal virtual void Update(){}
     }
 }

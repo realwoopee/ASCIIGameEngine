@@ -31,7 +31,7 @@ namespace ASCIIGame
 
             core.Initialize();
 
-            var player = new Player()
+            var player = new Player
             {
                 Position = new Vector2D(5, 5),
                 Layer = 3
@@ -51,7 +51,7 @@ namespace ASCIIGame
             {
                 if (rand.Next(100) < 10)
                 {
-                    core.AddObject(new Stone()
+                    core.AddObject(new Stone
                     {
                         Position = new Vector2D(i, j),
                         Layer = 2
@@ -60,7 +60,7 @@ namespace ASCIIGame
                 }
                 else
                 {
-                    core.AddObject(new Grass()
+                    core.AddObject(new Grass
                     {
                         Position = new Vector2D(i, j),
                         Layer = 1
@@ -69,7 +69,7 @@ namespace ASCIIGame
 
                 if (rand.Next(100) < 5)
                 {
-                    core.AddObject(new Enemy()
+                    core.AddObject(new Enemy
                     {
                         target = player,
                         Position = new Vector2D(i, j),
@@ -78,7 +78,7 @@ namespace ASCIIGame
                 }
             }
 
-            var bonus = new Bonus()
+            var bonus = new Bonus
             {
                 Layer = 4
             };
@@ -120,7 +120,7 @@ namespace ASCIIGame
         {
             var rand = new Random();
             var bonusPos = new Vector2D(rand.Next(worldSize.X), rand.Next(worldSize.Y));
-            var objs = GameObjectPoolSingleton.Instance.GetObjectsAtPosition(bonusPos);
+            var objs = GameObjectsListSingleton.Instance.GetObjectsAtPosition(bonusPos);
             if (!objs.All(o => o is Stone))
             {
                 bonus.Position = bonusPos;

@@ -5,20 +5,25 @@ using ASCIIEngine.Core.BasicClasses;
 
 namespace ASCIIEngine.Core
 {
-    public class GameObjectPoolSingleton
+    public class GameObjectsListSingleton
     {
-        private static readonly Lazy<GameObjectPoolSingleton> Lazy =
-            new Lazy<GameObjectPoolSingleton>(() => new GameObjectPoolSingleton());
+        private static readonly Lazy<GameObjectsListSingleton> Lazy =
+            new Lazy<GameObjectsListSingleton>(() => new GameObjectsListSingleton());
 
-        public static GameObjectPoolSingleton Instance => Lazy.Value;
+        public static GameObjectsListSingleton Instance => Lazy.Value;
 
         private readonly List<GameObject> _objects;
 
         public IReadOnlyList<GameObject> Objects => _objects;
 
-        private GameObjectPoolSingleton()
+        private GameObjectsListSingleton()
         {
             _objects = new List<GameObject>();
+        }
+        
+        internal void Initialize()
+        {
+            _objects.Clear();
         }
 
         internal void AddObject(GameObject gameObject)
@@ -35,11 +40,8 @@ namespace ASCIIEngine.Core
         public GameObject GetObjectById(string id) =>
             _objects.FirstOrDefault(o => o.Tag != null && o.Tag.Equals(id));
 
-        public IEnumerable<GameObject> GetObjectsAtPosition(Vector2D position)
-        {
-            return _objects
-                .Where(o => o.Position == position);
-        }
+        public IEnumerable<GameObject> GetObjectsAtPosition(Vector2D position) =>
+            _objects.Where(o => o.Position == position);
 
         internal void RemoveObject(string id)
         {
