@@ -35,7 +35,7 @@ namespace ASCIIEngine.UnitTests.Components
             rBody.Velocity = Vector2D.Up + Vector2D.Right;
             rBody.Update();
             
-            gameObject.Position.Should().BeEquivalentTo(new Vector2D(-21, 1));
+            gameObject.Position.Should().BeEquivalentTo(new Vector2D(-20, 0) + Vector2D.Up + Vector2D.Right);
         }
 
         [Fact]
