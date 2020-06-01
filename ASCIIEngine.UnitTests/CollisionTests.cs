@@ -116,8 +116,8 @@ namespace ASCIIEngine.UnitTests
 
             CollisionHandler.ResolveCollisions(new[] {firstObject, secondObject});
 
-            firstObject.Position.Should().BeEquivalentTo(new Vector2D(0, -1));
-            secondObject.Position.Should().BeEquivalentTo(new Vector2D(0, 1));
+            firstObject.Position.Should().BeEquivalentTo(new Vector2D(0, -1) + Vector2D.Right);
+            secondObject.Position.Should().BeEquivalentTo(new Vector2D(0, 1) + Vector2D.Left);
         }
 
         [Fact]
@@ -146,8 +146,8 @@ namespace ASCIIEngine.UnitTests
 
             CollisionHandler.ResolveCollisions(new[] {firstObject, secondObject});
 
-            firstObject.Position.Should().BeEquivalentTo(new Vector2D(0, -1));
-            secondObject.Position.Should().BeEquivalentTo(new Vector2D(0, 2));
+            firstObject.Position.Should().BeEquivalentTo(Vector2D.Left);
+            secondObject.Position.Should().BeEquivalentTo(new Vector2D(0, 1) + Vector2D.Right);
         }
 
         [Fact]
@@ -174,7 +174,7 @@ namespace ASCIIEngine.UnitTests
 
             CollisionHandler.ResolveCollisions(new[] {firstObject, secondObject});
 
-            firstObject.Position.Should().BeEquivalentTo(new Vector2D(0, 0));
+            firstObject.Position.Should().BeEquivalentTo(Vector2D.Right);
             secondObject.Position.Should().BeEquivalentTo(new Vector2D(0, 1));
         }
 
@@ -202,8 +202,8 @@ namespace ASCIIEngine.UnitTests
 
             CollisionHandler.ResolveCollisions(new[] {firstObject, secondObject});
 
-            firstObject.Position.Should().BeEquivalentTo(new Vector2D(1, 0));
-            secondObject.Position.Should().BeEquivalentTo(new Vector2D(0, 1));
+            firstObject.Position.Should().BeEquivalentTo(Vector2D.Down);
+            secondObject.Position.Should().BeEquivalentTo(Vector2D.Up);
         }
 
         [Fact]
@@ -229,8 +229,8 @@ namespace ASCIIEngine.UnitTests
 
             CollisionHandler.ResolveCollisions(new[] {firstObject, secondObject});
 
-            firstObject.Position.Should().BeEquivalentTo(new Vector2D(0, -1));
-            secondObject.Position.Should().BeEquivalentTo(new Vector2D(1, 0));
+            firstObject.Position.Should().BeEquivalentTo(Vector2D.Left);
+            secondObject.Position.Should().BeEquivalentTo(Vector2D.Down);
         }
 
         [Fact]
