@@ -5,6 +5,13 @@ namespace ASCIIEngine.CLI
 {
     public static class CLIHelper
     {
+        /// <summary>
+        /// Draws a given material rectangle from start (inclusive) to end (inclusive) with an outer ring
+        /// </summary>
+        /// <param name="start">Starting coordinate in console coordinates (X goes down, Y goes right)</param>
+        /// <param name="end">End coordinate in console coordinates (X goes down, Y goes right)</param>
+        /// <param name="outerMaterial">Material to fill the rectangle</param>
+        /// <param name="innerMaterial">Material to draw the ring</param>
         public static void DrawRect(Vector2D start, Vector2D end, Material outerMaterial, Material innerMaterial)
         {
             Console.ForegroundColor = innerMaterial.ForegroundColor;
@@ -28,9 +35,9 @@ namespace ASCIIEngine.CLI
         }
 
         /// <summary>
-        /// 
+        /// Draws a given buffer to the console, starting at base point
         /// </summary>
-        /// <param name="buffer"></param>
+        /// <param name="buffer">Buffer to draw</param>
         /// <param name="basePoint">BasePoint in console coordinates (X goes down, Y goes right)</param>
         public static void DrawArray(Material[,] buffer, Vector2D basePoint)
         {
@@ -48,7 +55,13 @@ namespace ASCIIEngine.CLI
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Draws a given material rectangle from start (inclusive) to end (inclusive)
+        /// </summary>
+        /// <param name="start">Starting coordinate in console coordinates (X goes down, Y goes right)</param>
+        /// <param name="end">End coordinate in console coordinates (X goes down, Y goes right)</param>
+        /// <param name="material">Material to fill the rectangle</param>
         private static void DrawRect(Vector2D start, Vector2D end, Material material)
         {
             Console.ForegroundColor = material.ForegroundColor;
