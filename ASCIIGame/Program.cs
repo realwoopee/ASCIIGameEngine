@@ -14,8 +14,11 @@ namespace ASCIIGame
     {
         private static void Main(string[] args)
         {
-            var exitProgram = false;
-
+            Console.CursorVisible = false;
+            Console.Title = "ASCIIGame";
+            Console.SetWindowSize(76, 22);
+            Console.SetBufferSize(76, 22);
+            Console.BackgroundColor = Color.Black;
             var isPlaying = true;
 
 
@@ -92,8 +95,6 @@ namespace ASCIIGame
             PlaceBonus(worldSize, core, bonus);
 
             var buffer = new Material[renderer.Size.X, renderer.Size.Y];
-
-            Console.CursorVisible = false;
 
             buffer = renderer.Render(buffer);
             CLIHelper.DrawArray(buffer, new Vector2D(1, 1));

@@ -48,10 +48,15 @@ namespace ASCIIEngine.CLI
                     if (buffer[i, j].Character == '\0')
                         continue;
                     var obj = buffer[i, j];
-                    Console.SetCursorPosition(i * 2 + basePoint.X, (buffer.GetLength(1) - 1) - j + basePoint.Y);
                     Console.ForegroundColor = obj.ForegroundColor;
                     Console.BackgroundColor = obj.BackgroundColor;
+                    Console.SetCursorPosition(i * 2 + basePoint.X, (buffer.GetLength(1) - 1) - j + basePoint.Y);
                     Console.Write(obj.Character);
+                    if (i > 0)
+                    {
+                        Console.SetCursorPosition(i * 2 + basePoint.X - 1 , (buffer.GetLength(1) - 1) - j + basePoint.Y);
+                        Console.Write('\0');
+                    }
                 }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading;
 using ASCIIEngine.CLI;
 using ASCIIEngine.Core;
@@ -11,6 +12,11 @@ namespace ASCIIEngine.ExampleApp
     {
         private static void Main()
         {
+            Console.CursorVisible = false;
+            Console.Title = "ASCIIGame";
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.SetWindowSize(25*2, 26);
+            Console.SetBufferSize(25*2, 26);
             SecondExample();
         }
 
@@ -20,7 +26,7 @@ namespace ASCIIEngine.ExampleApp
 
             var renderer = new Renderer(worldSize);
 
-            Logger.BasePoint = new Vector2D(42, 2);
+            Logger.BasePoint = new Vector2D(0, 0);
             Logger.LineLengthLimit = 32;
             Logger.LineNumberLimit = 18;
 
@@ -28,29 +34,29 @@ namespace ASCIIEngine.ExampleApp
 
             core.Initialize();
 
-            for (var x = 2; x <= 20; x++)
+            for (var n = 0; n < worldSize.X; n++)
             {
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(1, x),
+                    Position = new Vector2D(0, n),
                     Layer = 3
                 });
 
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(x, 2),
+                    Position = new Vector2D(n, 0),
                     Layer = 3
                 });
                 
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(x, 21),
+                    Position = new Vector2D(n, worldSize.Y-1),
                     Layer = 3
                 });
                 
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(21, x),
+                    Position = new Vector2D(worldSize.X-1, n),
                     Layer = 3
                 });
             }
@@ -101,7 +107,7 @@ namespace ASCIIEngine.ExampleApp
 
             var renderer = new Renderer(worldSize);
 
-            Logger.BasePoint = new Vector2D(42, 2);
+            Logger.BasePoint = new Vector2D(0, 0);
             Logger.LineLengthLimit = 32;
             Logger.LineNumberLimit = 18;
 
@@ -109,29 +115,29 @@ namespace ASCIIEngine.ExampleApp
 
             core.Initialize();
 
-            for (var x = 2; x <= 20; x++)
+            for (var n = 0; n < worldSize.X; n++)
             {
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(1, x),
+                    Position = new Vector2D(0, n),
                     Layer = 3
                 });
 
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(x, 2),
+                    Position = new Vector2D(n, 0),
                     Layer = 3
                 });
-                
+
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(x, 21),
+                    Position = new Vector2D(n, worldSize.Y - 1),
                     Layer = 3
                 });
-                
+
                 core.AddObject(new Wall
                 {
-                    Position = new Vector2D(21, x),
+                    Position = new Vector2D(worldSize.X - 1, n),
                     Layer = 3
                 });
             }
