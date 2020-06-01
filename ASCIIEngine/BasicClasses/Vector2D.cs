@@ -88,18 +88,22 @@ namespace ASCIIEngine.Core.BasicClasses
         /// (0, 1)
         /// </summary>
         public static Vector2D Up => new Vector2D(0, 1);
+
         /// <summary>
         /// (0, -1)
         /// </summary>
         public static Vector2D Down => new Vector2D(0, -1);
+
         /// <summary>
         /// (-1, 0)
         /// </summary>
         public static Vector2D Left => new Vector2D(-1, 0);
+
         /// <summary>
         /// (1, 0)
         /// </summary>
         public static Vector2D Right => new Vector2D(1, 0);
+        
         /// <summary>
         /// (0, 0)
         /// </summary>
