@@ -84,10 +84,10 @@ namespace ASCIIEngine.Core.BasicClasses
                    Y == d.Y;
         }
 
-        public static Vector2D Up => new Vector2D(-1, 0);
-        public static Vector2D Down => new Vector2D(1, 0);
-        public static Vector2D Left => new Vector2D(0, -1);
-        public static Vector2D Right => new Vector2D(0, 1);
+        public static Vector2D Up => new Vector2D(0, 1);
+        public static Vector2D Down => new Vector2D(0, -1);
+        public static Vector2D Left => new Vector2D(-1, 0);
+        public static Vector2D Right => new Vector2D(1, 0);
         public static Vector2D Zero => new Vector2D(0, 0);
 
         #endregion

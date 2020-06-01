@@ -27,6 +27,11 @@ namespace ASCIIEngine.CLI
             DrawRect(start, new Vector2D(start.X, end.Y), outerMaterial);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="basePoint">BasePoint in console coordinates (X goes down, Y goes right)</param>
         public static void DrawArray(Material[,] buffer, Vector2D basePoint)
         {
             for (var i = 0; i < buffer.GetLength(0); i++)
@@ -36,7 +41,7 @@ namespace ASCIIEngine.CLI
                     if (buffer[i, j].Character == '\0')
                         continue;
                     var obj = buffer[i, j];
-                    Console.SetCursorPosition(j * 2 + basePoint.X, i + basePoint.Y);
+                    Console.SetCursorPosition(i * 2 + basePoint.X, (buffer.GetLength(1) - 1) - j + basePoint.Y);
                     Console.ForegroundColor = obj.ForegroundColor;
                     Console.BackgroundColor = obj.BackgroundColor;
                     Console.Write(obj.Character);
