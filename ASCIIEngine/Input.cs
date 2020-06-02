@@ -17,22 +17,18 @@ namespace ASCIIEngine.Core
                 _ => new Vector2D()
             } : new Vector2D();
 
-        public static bool GameInput { get; private set; }
-
-        static Input()
-        {
-            GameInput = true;
-        }
+        public static bool GameInput { get; set; }
 
         public static void SetPressedKey(ConsoleKey key)
         {
             ActiveKey = key;
 
-            // ` key
-            if (key == ConsoleKey.Oem3)
+            if (key == TOGGLE_GAME_INPUT)
             {
                 GameInput = !GameInput;
             }
         }
+
+        public static ConsoleKey TOGGLE_GAME_INPUT;
     }
 }

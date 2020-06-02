@@ -99,6 +99,9 @@ namespace ASCIIGame
             buffer = renderer.Render(buffer);
             CLIHelper.DrawArray(buffer, new Vector2D(1, 1));
 
+            Input.GameInput = true;
+            Input.TOGGLE_GAME_INPUT = ConsoleKey.Oem3;
+
             while (isPlaying)
             {
                 Thread.Sleep(33);
